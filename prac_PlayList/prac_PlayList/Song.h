@@ -21,6 +21,9 @@ class Song_Container;
 using namespace std;
 
 // grab ID from database if the song already exists
+
+//assumption that the
+
 class Song{
     
 public:
