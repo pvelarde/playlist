@@ -16,7 +16,7 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-
+/*
     Playlist_Container* pl_DB = new Playlist_Container();
     Song_Container* s_DB = new Song_Container();
     
@@ -27,8 +27,18 @@ int main(int argc, const char * argv[]) {
     string str3 = "1 2 3\t40";
     
     Playlist * temp = new Playlist(pl_DB,str);
+  */
+    string line = "1601 254 212 453 1646 1616 1624 345 1619 1612 463 470 469 	24";
+    string deliminator = " 	";
+    string str_of_song_ids = "";
+    for(int ii = 0; ii < line.find(deliminator); ii++){
+        str_of_song_ids += line[ii];
+    }
+    line = line.substr(line.find(deliminator)+2,line.length()-line.find(deliminator)+1);
+    string pl_pop = line;
     
-    
+    cout << str_of_song_ids << endl;
+    cout << pl_pop << endl;
     
     return 0;
 }
