@@ -16,12 +16,16 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <cstdlib>
+#include <ctime>
 #include "Song_Container.h"
+#include "Playlist_Container.h"
 #include "Song.h"
+#include "Playlist.h"
 
 //class Song;
 //class Song_Container;
-class Playlist_Container;
+//class Playlist_Container;
 
 using namespace std;
 

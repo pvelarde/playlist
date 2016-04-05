@@ -58,6 +58,18 @@ Song_Container* Text_Parser::parse_song_text(){
     return sng_c;
 }
 
+static const char alphanum[] =
+"0123456789"
+"!@#$%^&*"
+"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+"abcdefghijklmnopqrstuvwxyz";
+
+int stringLength = sizeof(alphanum) - 1;
+
+char genRandom(){
+    return alphanum[rand() % stringLength];
+}
+
 Playlist_Container* Text_Parser::parse_playlist_text(){
     Playlist_Container* pl_c = NULL;
     
@@ -65,6 +77,7 @@ Playlist_Container* Text_Parser::parse_playlist_text(){
     ifstream myfile (this->my_file);
     if (myfile.is_open())
     {
+        pl_c = new Playlist_Container();
         while ( getline (myfile,line) )
         {
             string deliminator = " 	";
@@ -76,8 +89,16 @@ Playlist_Container* Text_Parser::parse_playlist_text(){
             string pl_pop = line;
             int pl_popularity = stoi(pl_pop);
             
-            // pl_popularity, str_of_song_ids are set at this point
+            srand(time(0));
+            string temp_str = "";
+            for(unsigned int i = 0; i < 31; ++i){
+                temp_str += genRandom();
+            }
+            cout << temp_str << endl;
             
+            // pl_popularity, str_of_song_ids are set at this point
+            Playlist* new_pl = new Playlist(temp_str, str_of_song_ids, pl_popularity);
+            pl_c->add(new_pl);
             
         }
         myfile.close();
