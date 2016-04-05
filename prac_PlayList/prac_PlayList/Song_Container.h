@@ -27,7 +27,7 @@ public:
     Song_Container();
     ~Song_Container();
     
-    bool add(Song*);
+    void add(Song*);
     Song* query(string _id);
     bool erase(string _id);
     

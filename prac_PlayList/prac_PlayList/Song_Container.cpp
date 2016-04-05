@@ -30,10 +30,10 @@ Song* Song_Container::query(string _id){
     return result;
 }
 
-bool Song_Container::add(Song* new_s){
-    bool result;
-    this->s_backend.insert(std::pair<string,Song*>(new_s->index,new_s));
-    return result;
+void Song_Container::add(Song* new_s){
+    //bool result;
+    this->s_backend.insert(std::pair<string,Song*>(new_s->get_song_id(),new_s));
+    //return result;
 }
 
 // return true if the element was deleted successfully

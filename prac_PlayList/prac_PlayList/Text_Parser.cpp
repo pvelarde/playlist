@@ -46,8 +46,8 @@ Song_Container* Text_Parser::parse_song_text(){
             
             
             // id, song_name, and artist_name are set at this point
-// UNCOMMENT            Song* new_song = new Song(id,song_name,artist_name);
-// UNCOMMENT           sng_c->add(new_song);
+            Song* new_song = new Song(id,song_name,artist_name);
+            sng_c->add(new_song);
             
         }
         myfile.close();

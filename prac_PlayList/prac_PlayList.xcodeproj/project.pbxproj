@@ -82,10 +82,10 @@
 				3EBDC75A1CB43B670043B9CF /* Top8_Playlist_Container.h */,
 				3E513E531C6D0F4E007B9C3A /* Playlist.h */,
 				3E513E541C6D0F4E007B9C3A /* Playlist.cpp */,
-				3E513E511C6D0F4E007B9C3A /* Song_Container.h */,
-				3E513E521C6D0F4E007B9C3A /* Song_Container.cpp */,
 				3EBDC7561CB41DC10043B9CF /* Text_Parser.cpp */,
 				3EBDC7571CB41DC10043B9CF /* Text_Parser.h */,
+				3E513E511C6D0F4E007B9C3A /* Song_Container.h */,
+				3E513E521C6D0F4E007B9C3A /* Song_Container.cpp */,
 				3E513E551C6D0F4E007B9C3A /* Playlist_Container.h */,
 				3E513E561C6D0F4E007B9C3A /* Playlist_Container.cpp */,
 			);
