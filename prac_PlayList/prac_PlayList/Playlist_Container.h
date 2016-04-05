@@ -23,7 +23,14 @@ using namespace std;
 
 class Playlist_Container{
 public:
-    
+    /*  WHAT IS LEFT TO IMPLEMENT
+     
+     -- add functionality to keep it to a max size of 1024
+     
+     
+     
+     
+     */
     Playlist_Container();
     ~Playlist_Container();
 

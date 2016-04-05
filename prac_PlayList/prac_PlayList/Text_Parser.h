@@ -33,6 +33,13 @@ class Text_Parser{
     
 public:
     
+    /*  WHAT IS LEFT TO IMPLEMENT
+     
+     -- this needs to get a pointer from the main playlist_container and song_container respectively
+         -- the parser functions should not be actually create the containers
+     
+     */
+    
     Text_Parser(string file_name);
     ~Text_Parser();
     
