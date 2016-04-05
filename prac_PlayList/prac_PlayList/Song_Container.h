@@ -28,10 +28,10 @@ public:
     ~Song_Container();
     
     bool add(Song*);
-    Song* query(int _id);
-    bool erase(int _id);
+    Song* query(string _id);
+    bool erase(string _id);
     
-    map<int,Song*> s_backend;
+    map<string,Song*> s_backend;
     static short int instance_count;
     
 private:

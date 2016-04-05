@@ -25,7 +25,7 @@ Song_Container::~Song_Container(){
     
 }
 
-Song* Song_Container::query(int _id){
+Song* Song_Container::query(string _id){
     Song* result = NULL;
     
     return result;
@@ -38,7 +38,7 @@ bool Song_Container::add(Song* new_s){
 }
 
 // return true if the element was deleted successfully
-bool Song_Container::erase(int _id){
+bool Song_Container::erase(string _id){
     bool result = false;
     
     

@@ -36,14 +36,14 @@ public:
     int popularity;
     
     // (This may be replaced) All songs in this play list access using the song's unqiue ID
-    vector<int> my_songs;
+    vector<string> my_songs;
     
     // Pointer to the entire Playlist_Container
     Playlist_Container* pl_db;
     
 private:
     
-    int generate_id();
+    string generate_id();
     
 };
 

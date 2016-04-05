@@ -28,11 +28,11 @@ public:
     ~Playlist_Container();
 
     // Pass in the index of the desired playlist
-    Playlist* query(int _id);
+    Playlist* query(string _id);
     bool add(Playlist* new_pl);
-    bool erase(int _id);
+    bool erase(string _id);
     
-    map<int,Playlist*> pl_backend;
+    map<string,Playlist*> pl_backend;
     static short int instance_count;
     
 private:

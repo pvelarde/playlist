@@ -15,7 +15,7 @@ Song::Song(){
     
 }
 
-Song::Song(int index, Song_Container* db){
+Song::Song(string index, Song_Container* db){
     
 }
 

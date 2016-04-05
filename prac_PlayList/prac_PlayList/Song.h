@@ -26,14 +26,14 @@ class Song{
 public:
     
     Song();
-    Song(int index, Song_Container* db);
+    Song(string index, Song_Container* db);
     ~Song();
 
     // unique ID
-    int index;
+    string index;
     
     // list of all playlists associated with
-    vector<int> member_of;
+    vector<string> member_of;
     
     // pointer to the song database
     Song_Container* s_db;

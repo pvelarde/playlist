@@ -24,7 +24,7 @@ Playlist_Container::~Playlist_Container(){
     
 }
 
-Playlist* Playlist_Container::query(int _id){
+Playlist* Playlist_Container::query(string _id){
     Playlist* result = NULL;
     
     return result;
@@ -36,7 +36,7 @@ bool Playlist_Container::add(Playlist* new_pl){
     return result;
 }
 
-bool Playlist_Container::erase(int _id){
+bool Playlist_Container::erase(string _id){
     bool result = false;
     
     

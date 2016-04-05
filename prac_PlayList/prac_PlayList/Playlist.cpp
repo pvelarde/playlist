@@ -25,9 +25,9 @@ Playlist::Playlist(Playlist_Container* dp, string formatted_str){
     this->pl_db = dp;
 
     stringstream stream(formatted_str);
-    int pop; // short for popularity
-    int nn;
-    vector<int> temp;
+    string pop; // short for popularity
+    string nn;
+    vector<string> temp;
     
     do{
         stream >> nn;
@@ -57,8 +57,8 @@ Playlist::~Playlist(){
 
 // Private
 
-int Playlist::generate_id(){
-    int result;
+string Playlist::generate_id(){
+    string result;
     
     return result;
 }
