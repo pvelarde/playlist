@@ -10,7 +10,7 @@
 #define __PlayList_prac__Song__
 
 #include <stdio.h>
-#include <vector>
+#include <list>
 #include <map>
 #include <string>
 #include <iostream>
@@ -22,27 +22,54 @@ using namespace std;
 
 // grab ID from database if the song already exists
 
-//assumption that the
-//asdfasdf asdfa sdf 
+//assumption: the songs in the database are not changing
+
+/*
+each song will have:
+ a variable equal to the song title
+ a variable equal to the song artist
+ a variable equal to the song id
+ a variable equal to the id of the most popular playlist
+ a variable of the current popularity
+ a list of playlist ids that the song belongs to
+ a function to add a playlist to the list
+ a function to delete a playlist to the list
+ a function to update the popularity of the song
+ 
+ constructor will have id song name song artist
+ 
+ */
+
+
 
 class Song{
     
 public:
     
     Song();
-    Song(string index, Song_Container* db);
+    Song(string song_id, string song_title, string song_artist);
     ~Song();
 
-    // unique ID
-    string index;
-    
-    // list of all playlists associated with
-    vector<string> member_of;
-    
-    // pointer to the song database
-    Song_Container* s_db;
+    //getters
+    string get_song_id();
+    string get_song_name();
+    string get_song_artist();
+    string get_song_most_pop_playlist();
+    int get_song_popularity();
+
+    //functions
+    bool song_delete_playlist(string song_id);
+    bool song_add_playlist(string playlist_id, int playlist_popularity);
     
 private:
+    //variables of song
+    string song_id;
+    string song_title;
+    string song_artist;
+    string song_most_pop_playlist;
+    int song_popularity;
+    
+    list<string> song_playlist_ids;
 
 protected:
     
