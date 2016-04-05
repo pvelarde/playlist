@@ -13,6 +13,7 @@
 		3E513E591C6D0F4E007B9C3A /* Playlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E513E541C6D0F4E007B9C3A /* Playlist.cpp */; };
 		3E513E5A1C6D0F4E007B9C3A /* Playlist_Container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E513E561C6D0F4E007B9C3A /* Playlist_Container.cpp */; };
 		3EBDC7581CB41DC10043B9CF /* Text_Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBDC7561CB41DC10043B9CF /* Text_Parser.cpp */; };
+		3EBDC75B1CB43B670043B9CF /* Top8_Playlist_Container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBDC7591CB43B670043B9CF /* Top8_Playlist_Container.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +41,8 @@
 		3E513E561C6D0F4E007B9C3A /* Playlist_Container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Playlist_Container.cpp; sourceTree = "<group>"; };
 		3EBDC7561CB41DC10043B9CF /* Text_Parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Text_Parser.cpp; sourceTree = "<group>"; };
 		3EBDC7571CB41DC10043B9CF /* Text_Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Text_Parser.h; sourceTree = "<group>"; };
+		3EBDC7591CB43B670043B9CF /* Top8_Playlist_Container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Top8_Playlist_Container.cpp; sourceTree = "<group>"; };
+		3EBDC75A1CB43B670043B9CF /* Top8_Playlist_Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Top8_Playlist_Container.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +78,8 @@
 				3E513E481C6D0F1F007B9C3A /* main.cpp */,
 				3E513E4F1C6D0F4E007B9C3A /* Song.h */,
 				3E513E501C6D0F4E007B9C3A /* Song.cpp */,
+				3EBDC7591CB43B670043B9CF /* Top8_Playlist_Container.cpp */,
+				3EBDC75A1CB43B670043B9CF /* Top8_Playlist_Container.h */,
 				3E513E531C6D0F4E007B9C3A /* Playlist.h */,
 				3E513E541C6D0F4E007B9C3A /* Playlist.cpp */,
 				3E513E511C6D0F4E007B9C3A /* Song_Container.h */,
@@ -143,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EBDC75B1CB43B670043B9CF /* Top8_Playlist_Container.cpp in Sources */,
 				3E513E571C6D0F4E007B9C3A /* Song.cpp in Sources */,
 				3E513E581C6D0F4E007B9C3A /* Song_Container.cpp in Sources */,
 				3E513E491C6D0F1F007B9C3A /* main.cpp in Sources */,

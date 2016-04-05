@@ -23,6 +23,7 @@ Song_Container* Text_Parser::parse_song_text(){
     ifstream myfile (this->my_file);
     if (myfile.is_open())
     {
+        sng_c = new Song_Container();
         while ( getline (myfile,line) )
         {
             string deliminator = "	";
@@ -45,9 +46,8 @@ Song_Container* Text_Parser::parse_song_text(){
             
             
             // id, song_name, and artist_name are set at this point
-            
-            
-            
+// UNCOMMENT            Song* new_song = new Song(id,song_name,artist_name);
+// UNCOMMENT           sng_c->add(new_song);
             
         }
         myfile.close();
@@ -74,8 +74,10 @@ Playlist_Container* Text_Parser::parse_playlist_text(){
             }// + 2 since the deliminator is 2 characters long
             line = line.substr(line.find(deliminator)+2,line.length()-line.find(deliminator)+1);
             string pl_pop = line;
+            int pl_popularity = stoi(pl_pop);
             
-            // pl_pop, str_of_song_ids are set at this point
+            // pl_popularity, str_of_song_ids are set at this point
+            
             
         }
         myfile.close();

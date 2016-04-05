@@ -26,24 +26,29 @@ class Playlist{
 public:
     
     Playlist();
-    Playlist(Playlist_Container* dp, string formatted_str);
+    
+    Playlist(string playlist_id, string str_of_songs, int popularity);
+    
     ~Playlist();
     
-    // Unique ID
-    int my_id;
+    // Getters
+    string getId();
     
-    // this playlist's popularity
-    int popularity;
+    int getPopularity();
     
-    // (This may be replaced) All songs in this play list access using the song's unqiue ID
+    // (This may be replaced with another datastructure) All songs in this play list access using the song's unqiue ID
     vector<string> my_songs;
     
     // Pointer to the entire Playlist_Container
     Playlist_Container* pl_db;
     
-private:
+    // Unique ID
+    string my_id;
     
-    string generate_id();
+    // this playlist's popularity
+    int popularity;
+    
+private:
     
 };
 
