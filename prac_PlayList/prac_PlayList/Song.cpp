@@ -33,9 +33,11 @@ Song::~Song(){
 
 bool Song::song_delete_playlist(string play_id){
     bool result = false;
-//    song_popularity = song_popularity - pl_c.query(play_id).getPopularity(); HERE HERE
-    result = true;
     
+    song_popularity = song_popularity - pl_c.query(play_id).getPopularity();
+    //function delete is not complete you need to make sure that the list with the playlists deletes the proper element of the list. that is the play_id in the list
+
+    result = true;
     return result;
 }
 
