@@ -32,8 +32,11 @@ Song::~Song(){
 }
 
 bool Song::song_delete_playlist(string play_id){
-    song_popularity = song_popularity - pl_c.query(play_id).getPopularity();
+    bool result = false;
+//    song_popularity = song_popularity - pl_c.query(play_id).getPopularity(); HERE HERE
+    result = true;
     
+    return result;
 }
 
 

@@ -12,6 +12,7 @@
 		3E513E581C6D0F4E007B9C3A /* Song_Container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E513E521C6D0F4E007B9C3A /* Song_Container.cpp */; };
 		3E513E591C6D0F4E007B9C3A /* Playlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E513E541C6D0F4E007B9C3A /* Playlist.cpp */; };
 		3E513E5A1C6D0F4E007B9C3A /* Playlist_Container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E513E561C6D0F4E007B9C3A /* Playlist_Container.cpp */; };
+		3E60A14E1CB6A42500C3A097 /* Try.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E60A14D1CB6A42500C3A097 /* Try.cpp */; };
 		3EBDC7581CB41DC10043B9CF /* Text_Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBDC7561CB41DC10043B9CF /* Text_Parser.cpp */; };
 		3EBDC75B1CB43B670043B9CF /* Top8_Playlist_Container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EBDC7591CB43B670043B9CF /* Top8_Playlist_Container.cpp */; };
 /* End PBXBuildFile section */
@@ -39,6 +40,8 @@
 		3E513E541C6D0F4E007B9C3A /* Playlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Playlist.cpp; sourceTree = "<group>"; };
 		3E513E551C6D0F4E007B9C3A /* Playlist_Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Playlist_Container.h; sourceTree = "<group>"; };
 		3E513E561C6D0F4E007B9C3A /* Playlist_Container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Playlist_Container.cpp; sourceTree = "<group>"; };
+		3E60A14C1CB6A42500C3A097 /* Try.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Try.h; sourceTree = "<group>"; };
+		3E60A14D1CB6A42500C3A097 /* Try.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Try.cpp; sourceTree = "<group>"; };
 		3EBDC7561CB41DC10043B9CF /* Text_Parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Text_Parser.cpp; sourceTree = "<group>"; };
 		3EBDC7571CB41DC10043B9CF /* Text_Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Text_Parser.h; sourceTree = "<group>"; };
 		3EBDC7591CB43B670043B9CF /* Top8_Playlist_Container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Top8_Playlist_Container.cpp; sourceTree = "<group>"; };
@@ -87,6 +90,8 @@
 				3E513E511C6D0F4E007B9C3A /* Song_Container.h */,
 				3E513E521C6D0F4E007B9C3A /* Song_Container.cpp */,
 				3E513E551C6D0F4E007B9C3A /* Playlist_Container.h */,
+				3E60A14C1CB6A42500C3A097 /* Try.h */,
+				3E60A14D1CB6A42500C3A097 /* Try.cpp */,
 				3E513E561C6D0F4E007B9C3A /* Playlist_Container.cpp */,
 			);
 			path = prac_PlayList;
@@ -155,6 +160,7 @@
 				3EBDC7581CB41DC10043B9CF /* Text_Parser.cpp in Sources */,
 				3E513E5A1C6D0F4E007B9C3A /* Playlist_Container.cpp in Sources */,
 				3E513E591C6D0F4E007B9C3A /* Playlist.cpp in Sources */,
+				3E60A14E1CB6A42500C3A097 /* Try.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

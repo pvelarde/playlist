@@ -11,23 +11,20 @@
 #include "Playlist.h"
 #include "Playlist_Container.h"
 #include "Song_Container.h"
+#include "Try.h"
 #include <string>
 
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-/*
-    Playlist_Container* pl_DB = new Playlist_Container();
-    Song_Container* s_DB = new Song_Container();
+    Try* temp = new Try();
     
-    string str = "\t";
-    string str0 = "0\t32";
-    string str1 = "3 2 23 64 75 233\t50";
-    string str2 = "45 34 3 2 6 2 33 53 534 2 34\t250";
-    string str3 = "1 2 3\t40";
+    temp->insert("hello");
+    temp->insert("hi");
+    temp->insert("how deep");
     
-    Playlist * temp = new Playlist(pl_DB,str);
-  */
-
+    temp->hasPrefix("h");
+    
+    delete temp;
     return 0;
 }
