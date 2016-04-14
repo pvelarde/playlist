@@ -33,12 +33,33 @@ Song::~Song(){
 
 bool Song::song_delete_playlist(string play_id){
     bool result = false;
-    
     song_popularity = song_popularity - pl_c.query(play_id).getPopularity();
-    //function delete is not complete you need to make sure that the list with the playlists deletes the proper element of the list. that is the play_id in the list
+    
+    for ( list<string>::iterator iterator = song_playlist_ids.begin(); iterator != song_playlist_ids.end() ; ++iterator ){
+        if (play_id == *iterator) {
+            song_playlist_ids.erase(iterator);
+            if (pl_c.query(play_id).get_song_popularity() == song_most_pop_playlist) {
+                for (list<string>::iterator checkPop = song_playlist_ids.begin(); checkPop != song_playlist_ids.end(); ++checkPop) {
+                    if (*checkPop >= song_most_pop_playlist) {
+                        song_most_pop_playlist = *checkPop;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+    return false;
+}
 
-    result = true;
-    return result;
+bool Song::song_add_playlist(string playlist_id, int playlist_popularity){
+    song_playlist_ids.push_front(playlist_id);
+    song_popularity += playlist_popularity;
+    
+    if (pl_c.query(playlist_id).getPopularity >= song_most_pop_playlist) {
+        song_most_pop_playlist = playlist_id;
+    }
+    
+    return true;
 }
 
 
