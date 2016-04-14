@@ -10,6 +10,8 @@ int main(int argc, char *argv[])
     w.setStyleSheet("background-color:rgb(204, 238, 255);");
 
 
+
+
     w.show();
     return a.exec();
 }

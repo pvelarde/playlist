@@ -80,10 +80,10 @@ public:
         pushButton->setGeometry(QRect(260, 20, 91, 41));
         label_2 = new QLabel(searchFrame);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(70, 50, 201, 31));
+        label_2->setGeometry(QRect(70, 70, 201, 31));
         listView = new QListView(searchFrame);
         listView->setObjectName(QStringLiteral("listView"));
-        listView->setGeometry(QRect(10, 80, 331, 141));
+        listView->setGeometry(QRect(10, 110, 331, 111));
         uploadFrame = new QFrame(centralWidget);
         uploadFrame->setObjectName(QStringLiteral("uploadFrame"));
         uploadFrame->setGeometry(QRect(400, 230, 391, 231));
