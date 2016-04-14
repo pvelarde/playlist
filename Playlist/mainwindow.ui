@@ -13,6 +13,51 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget{
+background-color:rgb(191, 191, 191);
+border-radius:2px;
+}
+
+QLabel{
+background-color: rgb(38, 180, 17);
+}
+QListView{
+}
+QPushButton {
+margin-left:2px;
+margin-top:-5px;
+padding-top:-2px;
+background:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(38, 180, 17), stop:1 rgb(26, 122, 12));
+}
+
+QFrame {
+/*background:orange;*/
+border: black;
+}
+
+QTextEdit{
+background:white;
+}
+
+
+
+QToolBar {
+/*background:purple;*/
+}
+
+QStatusBar{
+}
+
+QMenuBar{ /*bar at top*/
+
+}
+
+QListView{
+background:rgb(232, 232, 232);
+
+}</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QListView" name="mostPopularPlaylistListView">
     <property name="geometry">
@@ -22,6 +67,9 @@
       <width>761</width>
       <height>141</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -46,6 +94,9 @@
       <height>231</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
     </property>
@@ -68,7 +119,7 @@
        <x>260</x>
        <y>20</y>
        <width>91</width>
-       <height>41</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
@@ -97,7 +148,14 @@
        <height>111</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
     </widget>
+    <zorder>pushButton</zorder>
+    <zorder>textEdit</zorder>
+    <zorder>label_2</zorder>
+    <zorder>listView</zorder>
    </widget>
    <widget class="QFrame" name="uploadFrame">
     <property name="geometry">
@@ -135,7 +193,7 @@
         <x>260</x>
         <y>10</y>
         <width>91</width>
-        <height>41</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -150,6 +208,9 @@
         <width>251</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
      </widget>
     </widget>
@@ -174,8 +235,11 @@
         <x>10</x>
         <y>10</y>
         <width>261</width>
-        <height>21</height>
+        <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
      </widget>
      <widget class="QTextEdit" name="textEdit_4">
@@ -184,8 +248,12 @@
         <x>10</x>
         <y>40</y>
         <width>261</width>
-        <height>21</height>
+        <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">margin-top:2px;
+</string>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton_3">
@@ -255,6 +323,12 @@
      <string>Upload a playlist!</string>
     </property>
    </widget>
+   <zorder>searchFrame</zorder>
+   <zorder>mostPopularPlaylistListView</zorder>
+   <zorder>label</zorder>
+   <zorder>uploadFrame</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label_4</zorder>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

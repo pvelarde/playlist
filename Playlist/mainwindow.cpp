@@ -4,6 +4,11 @@
 #include <QStringList>
 #include <QAbstractItemModel>
 #include <QStringListModel>
+#include "Playlist_Container.h"
+#include "Song_Container.h"
+
+Song_Container* sng_c = new Song_Container();
+Playlist_Container* pl_c = new Playlist_Container();
 
 QAbstractItemModel *buildModel(){
     QStringList stringList;

@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+class Playlist_Container;
+class Song_Container;
+
+extern Song_Container* sng_c;
+extern Playlist_Container* pl_c;
 
 namespace Ui {
 class MainWindow;

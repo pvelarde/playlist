@@ -49,9 +49,23 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../Playlist/main.cpp \
-		../Playlist/mainwindow.cpp moc_mainwindow.cpp
+		../Playlist/mainwindow.cpp \
+		../Playlist/Playlist_Container.cpp \
+		../Playlist/Playlist.cpp \
+		../Playlist/Song_Container.cpp \
+		../Playlist/Song.cpp \
+		../Playlist/Text_Parser.cpp \
+		../Playlist/Top8_Playlist_Container.cpp \
+		../Playlist/Try.cpp moc_mainwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
+		Playlist_Container.o \
+		Playlist.o \
+		Song_Container.o \
+		Song.o \
+		Text_Parser.o \
+		Top8_Playlist_Container.o \
+		Try.o \
 		moc_mainwindow.o
 DIST          = /Users/nick102795/Qt/5.5/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/qdevice.pri \
@@ -174,6 +188,7 @@ DIST          = /Users/nick102795/Qt/5.5/clang_64/mkspecs/features/spec_pre.prf 
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/qt_config.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/macx-clang/qmake.conf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/spec_post.prf \
+		../Playlist/.qmake.stash \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/exclusive_builds.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/default_pre.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -195,8 +210,22 @@ DIST          = /Users/nick102795/Qt/5.5/clang_64/mkspecs/features/spec_pre.prf 
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/exceptions.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/yacc.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/lex.prf \
-		../Playlist/Playlist.pro ../Playlist/mainwindow.h ../Playlist/main.cpp \
-		../Playlist/mainwindow.cpp
+		../Playlist/Playlist.pro ../Playlist/mainwindow.h \
+		../Playlist/Playlist_Container.h \
+		../Playlist/Playlist.h \
+		../Playlist/Song_Container.h \
+		../Playlist/Song.h \
+		../Playlist/Text_Parser.h \
+		../Playlist/Top8_Playlist_Container.h \
+		../Playlist/Try.h ../Playlist/main.cpp \
+		../Playlist/mainwindow.cpp \
+		../Playlist/Playlist_Container.cpp \
+		../Playlist/Playlist.cpp \
+		../Playlist/Song_Container.cpp \
+		../Playlist/Song.cpp \
+		../Playlist/Text_Parser.cpp \
+		../Playlist/Top8_Playlist_Container.cpp \
+		../Playlist/Try.cpp
 QMAKE_TARGET  = Playlist
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = Playlist.app/Contents/MacOS/Playlist
@@ -359,6 +388,7 @@ Makefile: ../Playlist/Playlist.pro /Users/nick102795/Qt/5.5/clang_64/mkspecs/mac
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/qt_config.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/macx-clang/qmake.conf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/exclusive_builds.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/default_pre.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -506,6 +536,7 @@ Makefile: ../Playlist/Playlist.pro /Users/nick102795/Qt/5.5/clang_64/mkspecs/mac
 /Users/nick102795/Qt/5.5/clang_64/mkspecs/features/qt_config.prf:
 /Users/nick102795/Qt/5.5/clang_64/mkspecs/macx-clang/qmake.conf:
 /Users/nick102795/Qt/5.5/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /Users/nick102795/Qt/5.5/clang_64/mkspecs/features/exclusive_builds.prf:
 /Users/nick102795/Qt/5.5/clang_64/mkspecs/features/default_pre.prf:
 /Users/nick102795/Qt/5.5/clang_64/mkspecs/features/mac/default_pre.prf:
@@ -560,8 +591,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../Playlist/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Playlist/main.cpp ../Playlist/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Playlist/mainwindow.h ../Playlist/Playlist_Container.h ../Playlist/Playlist.h ../Playlist/Song_Container.h ../Playlist/Song.h ../Playlist/Text_Parser.h ../Playlist/Top8_Playlist_Container.h ../Playlist/Try.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Playlist/main.cpp ../Playlist/mainwindow.cpp ../Playlist/Playlist_Container.cpp ../Playlist/Playlist.cpp ../Playlist/Song_Container.cpp ../Playlist/Song.cpp ../Playlist/Text_Parser.cpp ../Playlist/Top8_Playlist_Container.cpp ../Playlist/Try.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Playlist/mainwindow.ui $(DISTDIR)/
 
 
@@ -626,8 +657,44 @@ main.o: ../Playlist/main.cpp ../Playlist/mainwindow.h \
 mainwindow.o: ../Playlist/mainwindow.cpp ../Playlist/mainwindow.h \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QListView \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qlistview.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QStringList \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QStringListModel \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qstringlistmodel.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Playlist/mainwindow.cpp
+
+Playlist_Container.o: ../Playlist/Playlist_Container.cpp ../Playlist/Playlist_Container.h \
+		../Playlist/Playlist.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Playlist_Container.o ../Playlist/Playlist_Container.cpp
+
+Playlist.o: ../Playlist/Playlist.cpp ../Playlist/Playlist.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Playlist.o ../Playlist/Playlist.cpp
+
+Song_Container.o: ../Playlist/Song_Container.cpp ../Playlist/Song_Container.h \
+		../Playlist/Song.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Song_Container.o ../Playlist/Song_Container.cpp
+
+Song.o: ../Playlist/Song.cpp ../Playlist/Song.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Song.o ../Playlist/Song.cpp
+
+Text_Parser.o: ../Playlist/Text_Parser.cpp ../Playlist/Text_Parser.h \
+		../Playlist/Song_Container.h \
+		../Playlist/Playlist_Container.h \
+		../Playlist/Song.h \
+		../Playlist/Playlist.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Text_Parser.o ../Playlist/Text_Parser.cpp
+
+Top8_Playlist_Container.o: ../Playlist/Top8_Playlist_Container.cpp ../Playlist/Top8_Playlist_Container.h \
+		../Playlist/Playlist_Container.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Top8_Playlist_Container.o ../Playlist/Top8_Playlist_Container.cpp
+
+Try.o: ../Playlist/Try.cpp ../Playlist/Try.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Try.o ../Playlist/Try.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

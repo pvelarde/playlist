@@ -13,8 +13,22 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    Playlist_Container.cpp \
+    Playlist.cpp \
+    Song_Container.cpp \
+    Song.cpp \
+    Text_Parser.cpp \
+    Top8_Playlist_Container.cpp \
+    Try.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    Playlist_Container.h \
+    Playlist.h \
+    Song_Container.h \
+    Song.h \
+    Text_Parser.h \
+    Top8_Playlist_Container.h \
+    Try.h
 
 FORMS    += mainwindow.ui

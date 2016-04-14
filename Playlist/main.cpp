@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
@@ -7,10 +8,7 @@ int main(int argc, char *argv[])
     MainWindow w;
 
     // set the intial conditions for the window!
-    w.setStyleSheet("background-color:rgb(204, 238, 255);");
-
-
-
+    //w.setStyleSheet("background-color:rgb(204, 238, 255);");
 
     w.show();
     return a.exec();
