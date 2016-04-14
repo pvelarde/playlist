@@ -30,7 +30,7 @@ Song::Song(string sg_id, string sg_title, string sg_artist){
 Song::~Song(){
     
 }
-
+//slight change
 bool Song::song_delete_playlist(string play_id){
     bool result = false;
     song_popularity = song_popularity - pl_c.query(play_id).getPopularity();
