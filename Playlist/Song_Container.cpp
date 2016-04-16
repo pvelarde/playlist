@@ -49,4 +49,12 @@ bool Song_Container::erase(string _id){
     return result;
 }
 
+void Song_Container::print(){
+    this->s_backend; // map<string,Playlist*> s_backend
+    int ii = 0;
+    for(map<string, Song* >::const_iterator it = s_backend.begin();it != s_backend.end(); ++it){
+        std::cout << "counter " << ii << " id: " << it->first << "\n";
+        ii++;
+    }
+}
 

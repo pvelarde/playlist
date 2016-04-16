@@ -32,6 +32,8 @@ public:
     Song* query(string _id);
     bool erase(string _id);
     
+    void print();
+
     map<string,Song*> s_backend;
     static short int instance_count;
     
