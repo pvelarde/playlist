@@ -64,15 +64,13 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWind
     // fill the playlist container
     pl_c = playlist_loader->parse_playlist_text();
 
-    sng_c->print();
+    //sng_c->print();
 
     // Set Up the top 8 Most Popular Playlists
     QListView *listView = ui->mostPopularPlaylistListView;
     QAbstractItemModel *model = buildModel();   // make the buildModel() func to intake the new most-popular PL strings
     listView->setModel(model);
     listView->show();
-
-
 }
 
 MainWindow::~MainWindow(){
