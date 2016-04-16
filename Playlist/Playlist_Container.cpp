@@ -31,8 +31,8 @@ Playlist* Playlist_Container::query(string _id){
 }
 
 bool Playlist_Container::add(Playlist* new_pl){
-    bool result;
-    
+    bool result = true;
+    this->pl_backend.insert(std::pair<string,Playlist*>(new_pl->getId(),new_pl));
     return result;
 }
 
@@ -42,3 +42,13 @@ bool Playlist_Container::erase(string _id){
     
     return result;
 }
+
+void Playlist_Container::print(){
+    this->pl_backend; // map<string,Playlist*> pl_backend
+    int ii = 0;
+    for(map<string, Playlist* >::const_iterator it = pl_backend.begin();it != pl_backend.end(); ++it){
+        std::cout << "counter " << ii << " id: " << it->first << "\n";
+        ii++;
+    }
+}
+

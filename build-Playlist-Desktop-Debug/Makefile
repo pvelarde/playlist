@@ -18,9 +18,9 @@ CXXFLAGS      = -m64 -pipe -g -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I../Playlist -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -I. -I.
 LINK          = g++
 LFLAGS        = -m64
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Gui -lQt5Core -lGL -lpthread
 AR            = ar cqs
-RANLIB        = 
+RANLIB        =
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 TAR           = tar -cf
 COMPRESS      = gzip -9f
@@ -155,7 +155,7 @@ first: all
 
 all: Makefile $(TARGET)
 
-$(TARGET): ui_mainwindow.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h $(OBJECTS)
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 	{ test -n "$(DESTDIR)" && DESTDIR="$(DESTDIR)" || DESTDIR=.; } && test $$(gdb --version | sed -e 's,[^0-9][^0-9]*\([0-9]\)\.\([0-9]\).*,\1\2,;q') -gt 72 && gdb --nx --batch --quiet -ex 'set confirm off' -ex "save gdb-index $$DESTDIR" -ex quit '$(TARGET)' && test -f $(TARGET).gdb-index && objcopy --add-section '.gdb_index=$(TARGET).gdb-index' --set-section-flags '.gdb_index=readonly' '$(TARGET)' '$(TARGET)' && rm -f $(TARGET).gdb-index || true
 
@@ -293,12 +293,12 @@ qmake: FORCE
 
 qmake_all: FORCE
 
-dist: 
+dist:
 	@test -d .tmp/Playlist1.0.0 || mkdir -p .tmp/Playlist1.0.0
 	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/Playlist1.0.0/ && $(COPY_FILE) --parents ../Playlist/mainwindow.h ../Playlist/Playlist_Container.h ../Playlist/Playlist.h ../Playlist/Song_Container.h ../Playlist/Song.h ../Playlist/Text_Parser.h ../Playlist/Top8_Playlist_Container.h ../Playlist/Try.h .tmp/Playlist1.0.0/ && $(COPY_FILE) --parents ../Playlist/main.cpp ../Playlist/mainwindow.cpp ../Playlist/Playlist_Container.cpp ../Playlist/Playlist.cpp ../Playlist/Song_Container.cpp ../Playlist/Song.cpp ../Playlist/Text_Parser.cpp ../Playlist/Top8_Playlist_Container.cpp ../Playlist/Try.cpp .tmp/Playlist1.0.0/ && $(COPY_FILE) --parents ../Playlist/mainwindow.ui .tmp/Playlist1.0.0/ && (cd `dirname .tmp/Playlist1.0.0` && $(TAR) Playlist1.0.0.tar Playlist1.0.0 && $(COMPRESS) Playlist1.0.0.tar) && $(MOVE) `dirname .tmp/Playlist1.0.0`/Playlist1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/Playlist1.0.0
 
 
-clean:compiler_clean 
+clean:compiler_clean
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
 
@@ -306,7 +306,7 @@ clean:compiler_clean
 ####### Sub-libraries
 
 distclean: clean
-	-$(DEL_FILE) $(TARGET) 
+	-$(DEL_FILE) $(TARGET)
 	-$(DEL_FILE) Makefile
 
 
@@ -449,7 +449,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_moc_header_clean compiler_uic_clean
 
 ####### Compile
 
@@ -1302,7 +1302,7 @@ Top8_Playlist_Container.o: ../Playlist/Top8_Playlist_Container.cpp ../Playlist/T
 Try.o: ../Playlist/Try.cpp ../Playlist/Try.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Try.o ../Playlist/Try.cpp
 
-moc_mainwindow.o: moc_mainwindow.cpp 
+moc_mainwindow.o: moc_mainwindow.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
 ####### Install
@@ -1312,4 +1312,3 @@ install:   FORCE
 uninstall:   FORCE
 
 FORCE:
-

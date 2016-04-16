@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <map>
+#include <utility>
 #include <string>
 #include <iostream>
 #include "mainwindow.h"
@@ -39,6 +40,7 @@ public:
     Playlist* query(string _id);
     bool add(Playlist* new_pl);
     bool erase(string _id);
+    void print();
     
     map<string,Playlist*> pl_backend;
     static short int instance_count;

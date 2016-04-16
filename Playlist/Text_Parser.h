@@ -22,6 +22,10 @@
 #include "Playlist_Container.h"
 #include "Song.h"
 #include "Playlist.h"
+#include <QString>
+#include <QFile>
+#include <QDir>
+#include <QDebug>
 
 //class Song;
 //class Song_Container;
@@ -30,27 +34,27 @@
 using namespace std;
 
 class Text_Parser{
-    
+
 public:
-    
+
     /*  WHAT IS LEFT TO IMPLEMENT
-     
+
      -- this needs to get a pointer from the main playlist_container and song_container respectively
          -- the parser functions should not be actually create the containers
-     
+
      */
-    
-    Text_Parser(string file_name);
+
+    Text_Parser(QString file_name);
     ~Text_Parser();
-    
+
     Song_Container* parse_song_text();
     Playlist_Container* parse_playlist_text();
-    
-    
+
+
 private:
-    
-    string my_file;
-    
+
+    QString my_file;
+
 };
 
 #endif /* Text_Parser_hpp */
