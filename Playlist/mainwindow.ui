@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>835</width>
-    <height>526</height>
+    <width>900</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -62,9 +62,9 @@ background:rgb(232, 232, 232);
    <widget class="QListView" name="mostPopularPlaylistListView">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>40</y>
-      <width>761</width>
+      <x>50</x>
+      <y>50</y>
+      <width>800</width>
       <height>141</height>
      </rect>
     </property>
@@ -75,10 +75,10 @@ background:rgb(232, 232, 232);
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>10</y>
-      <width>141</width>
-      <height>16</height>
+      <x>375</x>
+      <y>20</y>
+      <width>150</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
@@ -88,10 +88,10 @@ background:rgb(232, 232, 232);
    <widget class="QFrame" name="searchFrame">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>230</y>
-      <width>351</width>
-      <height>231</height>
+      <x>50</x>
+      <y>229</y>
+      <width>380</width>
+      <height>320</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -107,7 +107,7 @@ background:rgb(232, 232, 232);
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>20</y>
+       <y>40</y>
        <width>251</width>
        <height>31</height>
       </rect>
@@ -116,8 +116,8 @@ background:rgb(232, 232, 232);
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
-       <x>260</x>
-       <y>20</y>
+       <x>270</x>
+       <y>40</y>
        <width>91</width>
        <height>31</height>
       </rect>
@@ -126,25 +126,12 @@ background:rgb(232, 232, 232);
       <string>Go</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>70</y>
-       <width>201</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>*Stub for most popular playlist*</string>
-     </property>
-    </widget>
     <widget class="QListView" name="listView">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>110</y>
-       <width>331</width>
+       <y>70</y>
+       <width>251</width>
        <height>111</height>
       </rect>
      </property>
@@ -152,18 +139,59 @@ background:rgb(232, 232, 232);
       <string notr="true"/>
      </property>
     </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>200</y>
+       <width>150</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Most Popular Playlist</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>115</x>
+       <y>10</y>
+       <width>150</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Search for a Song</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="textEdit_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>251</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
     <zorder>pushButton</zorder>
     <zorder>textEdit</zorder>
-    <zorder>label_2</zorder>
     <zorder>listView</zorder>
+    <zorder>label_2</zorder>
+    <zorder>label_3</zorder>
+    <zorder>textEdit_5</zorder>
    </widget>
    <widget class="QFrame" name="uploadFrame">
     <property name="geometry">
      <rect>
-      <x>400</x>
+      <x>440</x>
       <y>230</y>
       <width>391</width>
-      <height>231</height>
+      <height>291</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -176,9 +204,9 @@ background:rgb(232, 232, 232);
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>30</y>
-       <width>371</width>
-       <height>81</height>
+       <y>70</y>
+       <width>370</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -190,10 +218,10 @@ background:rgb(232, 232, 232);
      <widget class="QPushButton" name="pushButton_2">
       <property name="geometry">
        <rect>
-        <x>260</x>
+        <x>270</x>
         <y>10</y>
-        <width>91</width>
-        <height>31</height>
+        <width>90</width>
+        <height>30</height>
        </rect>
       </property>
       <property name="text">
@@ -205,8 +233,8 @@ background:rgb(232, 232, 232);
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>251</width>
-        <height>31</height>
+        <width>250</width>
+        <height>30</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -218,9 +246,9 @@ background:rgb(232, 232, 232);
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>140</y>
-       <width>371</width>
-       <height>81</height>
+       <y>159</y>
+       <width>370</width>
+       <height>121</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -233,9 +261,9 @@ background:rgb(232, 232, 232);
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
-        <width>261</width>
-        <height>31</height>
+        <y>30</y>
+        <width>250</width>
+        <height>30</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -246,9 +274,9 @@ background:rgb(232, 232, 232);
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>40</y>
-        <width>261</width>
-        <height>31</height>
+        <y>90</y>
+        <width>250</width>
+        <height>30</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -260,75 +288,89 @@ background:rgb(232, 232, 232);
       <property name="geometry">
        <rect>
         <x>270</x>
-        <y>10</y>
-        <width>101</width>
-        <height>61</height>
+        <y>30</y>
+        <width>91</width>
+        <height>91</height>
        </rect>
       </property>
       <property name="text">
        <string>Go</string>
       </property>
      </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>140</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Playlist Name</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>70</y>
+        <width>140</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Playlist Popularity</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>10</y>
-       <width>59</width>
+       <x>10</x>
+       <y>50</y>
+       <width>100</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>from file:</string>
+      <string>From File:</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>120</y>
-       <width>101</width>
+       <x>10</x>
+       <y>140</y>
+       <width>100</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>a single playlist:</string>
+      <string>Single Playlist:</string>
      </property>
     </widget>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>200</y>
-      <width>101</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Search a song!</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>540</x>
-      <y>200</y>
-      <width>111</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Upload a playlist!</string>
-    </property>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>115</x>
+       <y>10</y>
+       <width>150</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Upload a Playlist</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
    </widget>
    <zorder>searchFrame</zorder>
    <zorder>mostPopularPlaylistListView</zorder>
    <zorder>label</zorder>
    <zorder>uploadFrame</zorder>
-   <zorder>label_3</zorder>
-   <zorder>label_4</zorder>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -344,8 +386,8 @@ background:rgb(232, 232, 232);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>835</width>
-     <height>22</height>
+     <width>900</width>
+     <height>25</height>
     </rect>
    </property>
   </widget>
