@@ -7,6 +7,7 @@
 //
 
 #include "Try.h"
+#include "string.h"
 
 /* non-constrained Try*/
 Try::Try(){

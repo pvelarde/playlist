@@ -9,6 +9,7 @@
 #include "Song.h"
 #include "Song_Container.h"
 #include "Playlist.h"
+#include "Playlist_Container.h"
 
 // Public
 
