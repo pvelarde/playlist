@@ -114,7 +114,7 @@ public:
         searchFrame = new QFrame(centralWidget);
         searchFrame->setObjectName(QStringLiteral("searchFrame"));
         searchFrame->setGeometry(QRect(30, 230, 351, 231));
-        searchFrame->setStyleSheet(QStringLiteral("background:black;"));
+        searchFrame->setStyleSheet(QStringLiteral(""));
         searchFrame->setFrameShape(QFrame::StyledPanel);
         searchFrame->setFrameShadow(QFrame::Raised);
         textEdit = new QTextEdit(searchFrame);
