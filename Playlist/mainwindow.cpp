@@ -78,3 +78,35 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWind
 MainWindow::~MainWindow(){
     delete ui;
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    songName = ui->textEdit->toPlainText();
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    fileName = ui->textEdit_2->toPlainText();
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    playlistName = ui->textEdit_3->toPlainText();
+    playlistPopularity = ui->textEdit_4->toPlainText();
+    QString testString = playlistName + " " + playlistPopularity;
+}
+
+void MainWindow::on_textEdit_textChanged()
+{
+    suggestName = ui->textEdit->toPlainText();
+    QStringList songSuggestions;
+    for (int i=0; i<4; i++)
+    {
+        QString songName;
+        if (i <= suggestName.length()) songName = suggestName[i];
+        else songName = "";
+        songSuggestions << songName;
+    }
+    QStringListModel *model = new QStringListModel(songSuggestions);
+    ui->listView->setModel(model);
+}
