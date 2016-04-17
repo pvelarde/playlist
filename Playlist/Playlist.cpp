@@ -18,6 +18,7 @@ Playlist::Playlist(){
 Playlist::Playlist(string playlist_id, string str_of_songs,int popularity){
     stringstream lineStream(str_of_songs);
     string song_id;
+    this->my_song_stream = str_of_songs;
     while (lineStream >> song_id)
         this->my_songs.push_back(song_id);
     

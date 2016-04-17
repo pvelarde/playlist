@@ -14,6 +14,7 @@
 #include <utility>
 #include <string>
 #include <iostream>
+#include <vector>
 #include "mainwindow.h"
 
 class Playlist;
@@ -41,8 +42,14 @@ public:
     bool add(Playlist* new_pl);
     bool erase(string _id);
     void print();
+
+    //this function will go through and query all live 1024 playlists. It will sort them based on popularity but store the
+    // associated UIDs in the "my_sortd_ids" vector - note this array will not be maintained. It will need to be constantly
+    // re-sorted
+    void sort_me();
     
     map<string,Playlist*> pl_backend;
+    vector<string> my_sorted_ids;
     static short int instance_count;
     
 private:

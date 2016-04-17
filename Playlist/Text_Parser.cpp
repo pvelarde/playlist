@@ -170,10 +170,10 @@ Playlist_Container* Text_Parser::parse_playlist_text(){
           for(int ii = 0; ii < line.find(deliminator); ii++){
               str_of_song_ids += line[ii];
           }// + 2 since the deliminator is 2 characters long
-          line = line.substr(line.find(deliminator)+2,line.length()-line.find(deliminator)+1);
+          line = line.substr(line.find(deliminator)+1,line.length()-line.find(deliminator)+1);
           string pl_pop = line;
           int pl_popularity = atoi(pl_pop.c_str()); // was stoi but this version of C++ is bad
-
+         //  std::cout << pl_pop << std::endl;
 
           string temp_str = "";
           for(unsigned int i = 0; i < 31; ++i){
@@ -183,6 +183,7 @@ Playlist_Container* Text_Parser::parse_playlist_text(){
 
           // pl_popularity, str_of_song_ids are set at this point
           Playlist* new_pl = new Playlist(temp_str, str_of_song_ids, pl_popularity);
+          //std::cout << "ID: " << temp_str << " title: " << str_of_song_ids << " popularity: "<< pl_popularity << std::endl;
           pl_c->add(new_pl);
 
           //    qDebug() << line_temp;

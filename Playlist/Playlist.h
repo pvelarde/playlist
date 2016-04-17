@@ -44,7 +44,10 @@ public:
     
     // Unique ID
     string my_id;
-    
+
+    // For Debugging purposes
+    string my_song_stream;
+
     // this playlist's popularity
     int popularity;
     

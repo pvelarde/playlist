@@ -39,10 +39,21 @@ Playlist_Container* pl_c = NULL; //new Playlist_Container();
 QAbstractItemModel *buildModel(){
     QStringList stringList;
 
-    for(int ii = 0; ii < 9; ii++){
+    /*for(int ii = 0; ii < 9; ii++){
         QString temp = "Playlist " + QString::number(ii); //QString::number(pl_c->pl_backend.size());
         stringList << temp;
+    }*/
+
+    for(int ii = 1023, jj = 1; ii > 1015; ii--, jj++){
+       string pl_id = pl_c->my_sorted_ids.at(ii);
+       /*std::cout << "id: " << pl_id << "my songs: " <<
+       pl_c->query(pl_id)->my_song_stream << " popularity: " <<
+       pl_c->query(pl_id)->getPopularity() << std::endl;*/
+       QString temp = QString::number(jj) + ": " + QString::fromStdString(pl_c->query(pl_id)->my_song_stream);
+       //QString temp = "Playlist " + QString::number(ii); //QString::number(pl_c->pl_backend.size());
+       stringList << temp;
     }
+
 
     QStringListModel *model = new QStringListModel(stringList);
     return model;
@@ -51,8 +62,8 @@ QAbstractItemModel *buildModel(){
 MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWindow){
     ui->setupUi(this);
 
-    QString fileName = QDir::homePath() + "/Desktop/main/School/College/year3/EC504/playlist/Playlist/";
-
+    QString fileName = QDir::homePath() + "/Desktop/playlist/Playlist/";
+    //cout << QDir::homePath().toLatin1().data() << endl;
     // load up songs from file
     Text_Parser* song_loader = new Text_Parser(fileName + "song_list.txt");
     Text_Parser* playlist_loader = new Text_Parser(fileName + "day00.txt");
@@ -61,10 +72,17 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWind
     // create song objects
     sng_c = song_loader->parse_song_text();
 
+
     // fill the playlist container
     pl_c = playlist_loader->parse_playlist_text();
+    // sort all IDs in order of that playlist's popularity
+    pl_c->sort_me();
 
-    //sng_c->print();
+    /*for(int ii = 1023; ii > 1015; ii--){
+        string pl_id = pl_c->my_sorted_ids.at(ii);
+        std::cout << "id: " << pl_id << "my songs: " << pl_c->query(pl_id)->my_song_stream << " popularity: " << pl_c->query(pl_id)->getPopularity() << std::endl;
+    }*/
+
 
     // Set Up the top 8 Most Popular Playlists
     QListView *listView = ui->mostPopularPlaylistListView;
