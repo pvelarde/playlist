@@ -112,6 +112,9 @@ background:rgb(232, 232, 232);
        <height>31</height>
       </rect>
      </property>
+     <property name="placeholderText">
+      <string>Search a song...</string>
+     </property>
     </widget>
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
@@ -177,6 +180,9 @@ background:rgb(232, 232, 232);
        <height>31</height>
       </rect>
      </property>
+     <property name="placeholderText">
+      <string>The most popularly matched playlist...</string>
+     </property>
     </widget>
     <zorder>pushButton</zorder>
     <zorder>textEdit</zorder>
@@ -240,6 +246,9 @@ background:rgb(232, 232, 232);
       <property name="styleSheet">
        <string notr="true"/>
       </property>
+      <property name="placeholderText">
+       <string>Enter absolute path to a .txt of playlists</string>
+      </property>
      </widget>
     </widget>
     <widget class="QFrame" name="frame_2">
@@ -269,6 +278,9 @@ background:rgb(232, 232, 232);
       <property name="styleSheet">
        <string notr="true"/>
       </property>
+      <property name="placeholderText">
+       <string>Enter playlist IDs seperated by spaces...</string>
+      </property>
      </widget>
      <widget class="QTextEdit" name="textEdit_4">
       <property name="geometry">
@@ -282,6 +294,9 @@ background:rgb(232, 232, 232);
       <property name="styleSheet">
        <string notr="true">margin-top:2px;
 </string>
+      </property>
+      <property name="placeholderText">
+       <string>Enter playlist's popularity...</string>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton_3">
@@ -387,7 +402,7 @@ background:rgb(232, 232, 232);
      <x>0</x>
      <y>0</y>
      <width>900</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
