@@ -102,9 +102,14 @@ MainWindow::~MainWindow(){
     delete ui;
 }
 
+// bottom left functionality for the most popularly associated playlist
 void MainWindow::on_pushButton_clicked(){
     songName = ui->textEdit->toPlainText();
-    //std::cout << "button clicked" << std::endl;
+    std::cout << "button clicked" << std::endl;
+
+    ui->label_9->setStyleSheet("color:black; background-color:white");
+    ui->label_9->setText("changed");
+
 }
 
 void MainWindow::on_pushButton_2_clicked(){
@@ -120,6 +125,9 @@ void MainWindow::on_pushButton_3_clicked(){
 }
 
 void MainWindow::on_textEdit_textChanged(){
+    ui->label_9->setStyleSheet("color:grey; background-color:white");
+    ui->label_9->setText("The most popularly matched playlist...");
+
     suggestName = ui->textEdit->toPlainText();
     string input = suggestName.toLatin1().data();
     QStringList songSuggestions;
