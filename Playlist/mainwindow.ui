@@ -148,7 +148,7 @@ background:rgb(232, 232, 232);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">margin-top:2px;</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_2">

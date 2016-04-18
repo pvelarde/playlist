@@ -122,11 +122,11 @@ void Try::setChildren(){
 void Try::print_all(string inn){ // default: inn == ""
     
     if(this->endWordFlag && this->hasChildren()){
-        cout << inn << endl;
+      //  cout << inn << endl;
         this->returnRoot()->temp_suggests->push_back(inn);
     }
     if(this->endWordFlag && this->hasChildren() == false){
-        cout << inn << endl;
+      //  cout << inn << endl;
         this->returnRoot()->temp_suggests->push_back(inn);
     }
     
@@ -168,12 +168,12 @@ string Try::find_one(string prefix, string inn){
 void Try::print_all(string prefix, string inn){ // default: inn == ""
     string word = prefix + inn;
     if(this->endWordFlag && this->hasChildren()){
-        cout << word << endl;
+      //  cout << word << endl;
         this->returnRoot()->temp_suggests->push_back(word);
         //cout << this->temp_suggests->size() << endl;
     }
     if(this->endWordFlag && this->hasChildren() == false){
-        cout << word << endl;
+      //  cout << word << endl;
         this->returnRoot()->temp_suggests->push_back(word);
         //cout << this->temp_suggests->size() << endl;
     }

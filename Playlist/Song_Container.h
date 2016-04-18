@@ -37,7 +37,7 @@ public:
     void print();
     Try* load_trie_w_songs();
 
-    map<string,Song*> s_backend;
+    map<string,Song*> s_backend_id2name;
     static short int instance_count;
     
 private:
