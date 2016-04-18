@@ -63,6 +63,8 @@ public:
     /* Pass in a string and will print all the strings with that prefix */
     void hasPrefix(string inn);
     
+    vector<string>* hasPrefixAsVector(string inn);
+
     /* Recursive call that allows the current try traverse the structure upwards*/
     string goToParent();
     
@@ -115,6 +117,10 @@ public:
     /* Houses the entire distribution as a count of integers*/
     vector<int> distribution;
     
+    /* Houses suggestions based on the prefix function.
+     * Cannot use until the hasPrefixAsVector has been called*/
+    vector<string>* temp_suggests;
+
 private:
     
 protected:

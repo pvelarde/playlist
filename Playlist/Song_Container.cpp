@@ -58,3 +58,15 @@ void Song_Container::print(){
     }
 }
 
+Try* Song_Container::load_trie_w_songs(){
+    Try* search_tree = new Try();
+    // load up the Trie Tree with all the songs in the system
+    for(map<string, Song* >::const_iterator it = s_backend.begin();it != s_backend.end(); ++it){
+        search_tree->insert(it->second->get_song_name());
+    }
+    return search_tree;
+}
+
+
+
+

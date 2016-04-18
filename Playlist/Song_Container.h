@@ -14,9 +14,11 @@
 #include <string>
 #include <iostream>
 #include "mainwindow.h"
+#include "Try.h"
 
 class Playlist;
 class Song;
+class Try;
 
 using namespace std;
 
@@ -33,6 +35,7 @@ public:
     bool erase(string _id);
     
     void print();
+    Try* load_trie_w_songs();
 
     map<string,Song*> s_backend;
     static short int instance_count;

@@ -86,5 +86,14 @@ void Playlist_Container::sort_me(){
 
 }
 
-
+void Playlist_Container::update_song_popularities(){
+    // iterate through all pairs of the playlist
+    for(map<string, Playlist* >::const_iterator it = pl_backend.begin();it != pl_backend.end(); ++it){
+        // for each playlist go through all its songs add the playlist's popularity to it
+        for(int ii = 0 ; ii < it->second->my_songs.size(); ii++){
+            // add playlist's pop to each song it is associated with
+            sng_c->query(it->second->my_songs.at(ii))->song_add_playlist(it->second->getId());
+        }
+    }
+}
 

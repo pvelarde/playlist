@@ -54,12 +54,13 @@ public:
     string get_song_id();
     string get_song_name();
     string get_song_artist();
+    void   set_song_popularity(int new_pop);
     string get_song_most_pop_playlist_id();
     int getPopularity();
 
     //functions
     bool song_delete_playlist(string song_id);
-    bool song_add_playlist(string playlist_id, int playlist_popularity);
+    bool song_add_playlist(string playlist_id);
     
 private:
     //variables of song

@@ -16,9 +16,11 @@
 #include <iostream>
 #include <vector>
 #include "mainwindow.h"
+#include "Song_Container.h"
+#include "Song.h"
 
 class Playlist;
-class Song;
+//class Song;
 
 using namespace std;
 
@@ -47,6 +49,8 @@ public:
     // associated UIDs in the "my_sortd_ids" vector - note this array will not be maintained. It will need to be constantly
     // re-sorted
     void sort_me();
+
+    void update_song_popularities();
     
     map<string,Playlist*> pl_backend;
     vector<string> my_sorted_ids;

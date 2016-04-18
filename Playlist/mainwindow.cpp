@@ -9,6 +9,7 @@
 #include "Playlist_Container.h"
 #include "Song_Container.h"
 #include "Text_Parser.h"
+#include "Try.h"
 #include <QString>
 #include <QFile>
 #include <QDir>
@@ -33,8 +34,9 @@
 */
 
 
-Song_Container* sng_c = NULL;//new Song_Container();
-Playlist_Container* pl_c = NULL; //new Playlist_Container();
+Song_Container* sng_c = NULL;// new Song_Container();
+Playlist_Container* pl_c = NULL; // new Playlist_Container();
+Try* song_tree = NULL; // new Trie();
 
 QAbstractItemModel *buildModel(){
     QStringList stringList;
@@ -59,9 +61,7 @@ QAbstractItemModel *buildModel(){
     return model;
 }
 
-MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWindow){
-    ui->setupUi(this);
-
+void setInitialState(){
     QString fileName = QDir::homePath() + "/Desktop/playlist/Playlist/";
     //cout << QDir::homePath().toLatin1().data() << endl;
     // load up songs from file
@@ -71,18 +71,25 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWind
     // load up the backend datastructures here
     // create song objects
     sng_c = song_loader->parse_song_text();
-
-
     // fill the playlist container
     pl_c = playlist_loader->parse_playlist_text();
     // sort all IDs in order of that playlist's popularity
     pl_c->sort_me();
+    // load up all the song popularities, now that the playlists have been instanciated
+    pl_c->update_song_popularities();
+    // load all songs into the Trie
+    song_tree = sng_c->load_trie_w_songs();
+}
+
+MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWindow){
+    ui->setupUi(this);
+    // build all initial backend structures & load the appropriate data from files
+    setInitialState();
 
     /*for(int ii = 1023; ii > 1015; ii--){
         string pl_id = pl_c->my_sorted_ids.at(ii);
         std::cout << "id: " << pl_id << "my songs: " << pl_c->query(pl_id)->my_song_stream << " popularity: " << pl_c->query(pl_id)->getPopularity() << std::endl;
     }*/
-
 
     // Set Up the top 8 Most Popular Playlists
     QListView *listView = ui->mostPopularPlaylistListView;
@@ -95,34 +102,50 @@ MainWindow::~MainWindow(){
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
-{
+void MainWindow::on_pushButton_clicked(){
     songName = ui->textEdit->toPlainText();
+    //std::cout << "button clicked" << std::endl;
 }
 
-void MainWindow::on_pushButton_2_clicked()
-{
+void MainWindow::on_pushButton_2_clicked(){
     fileName = ui->textEdit_2->toPlainText();
+    //std::cout << "button2 clicked" << std::endl;
 }
 
-void MainWindow::on_pushButton_3_clicked()
-{
+void MainWindow::on_pushButton_3_clicked(){
     playlistName = ui->textEdit_3->toPlainText();
     playlistPopularity = ui->textEdit_4->toPlainText();
     QString testString = playlistName + " " + playlistPopularity;
+    //std::cout << "button3 clicked" << std::endl;
 }
 
-void MainWindow::on_textEdit_textChanged()
-{
+void MainWindow::on_textEdit_textChanged(){
     suggestName = ui->textEdit->toPlainText();
+    string input = suggestName.toLatin1().data();
     QStringList songSuggestions;
-    for (int i=0; i<4; i++)
+    /*for (int i=0; i<4; i++)
     {
         QString songName;
         if (i <= suggestName.length()) songName = suggestName[i];
         else songName = "";
         songSuggestions << songName;
+    }*/
+
+
+    //song_tree->hasPrefix();
+    vector<string>* suggested_vector = song_tree->hasPrefixAsVector(input);
+
+    //std::cout << "inside vector: " << std::endl;
+    for(int ii = 0; ii < suggested_vector->size(); ii++){
+        //std::cout << suggested_vector->at(ii) << std::endl;
+        songSuggestions << QString::fromStdString(suggested_vector->at(ii));
     }
+    //std::cout << "leaving vector" << std::endl;
+    //std::cout << "vector size: " << suggested_vector.size() << std::endl;
+
+    // HERE HERE - At this point you need to refine the displayed list to the top 4 most popular songs
+
+
     QStringListModel *model = new QStringListModel(songSuggestions);
     ui->listView->setModel(model);
 }

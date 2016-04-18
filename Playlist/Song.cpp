@@ -54,17 +54,27 @@ bool Song::song_delete_playlist(string play_id){
     return false;
 }//teasf
 
-bool Song::song_add_playlist(string playlist_id, int playlist_popularity){
+bool Song::song_add_playlist(string playlist_id){
+    //add id to the list
     this->song_playlist_ids.push_front(playlist_id);
-    this->song_popularity += playlist_popularity;
+
+    // add to the song's popularity (sum of its constituent playlists' popularities)
+    this->song_popularity += pl_c->query(playlist_id)->getPopularity();
     
-    if (pl_c->query(playlist_id)->getPopularity() >= pl_c->query(song_most_pop_playlist_id)->getPopularity()) {
+    // if this playlist is more popular than the previous
+    if(this->song_most_pop_playlist_id == ""){
+        this->song_most_pop_playlist_id = playlist_id;
+    }
+    else if (pl_c->query(playlist_id)->getPopularity() >= pl_c->query(song_most_pop_playlist_id)->getPopularity()) {
         this->song_most_pop_playlist_id = playlist_id;
     }
     
     return true;
 }
 
+void Song::set_song_popularity(int new_pop){
+    this->song_popularity = new_pop;
+}
 
 string Song::get_song_id(){
     return song_id;

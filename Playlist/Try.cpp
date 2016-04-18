@@ -20,6 +20,8 @@ Try::Try(){
     this->parentNode = NULL;
     // This is being set to 10 at default to avoid potential breakage
     this->acceptLength = 10;
+   // vector<string> temp;
+    this->temp_suggests = new vector<string>();
 }
 
 /* Default/Initial constructor*/
@@ -32,6 +34,8 @@ Try::Try(int acceptLength){
     this->overallTotal = 0;
     this->parentNode = NULL;
     this->acceptLength = acceptLength;
+    //vector<string> temp;
+    this->temp_suggests = new vector<string>();
 }
 
 /* Insertion constructor*/
@@ -43,6 +47,8 @@ Try::Try(char newChar, bool endOfWord, int level, Try * parent, int acceptLength
     this->endWordFlag = endOfWord;
     this->parentNode = parent;
     this->acceptLength = acceptLength;
+  //  vector<string> temp;
+    this->temp_suggests = new vector<string>();
 }
 
 Try::~Try(){}
@@ -117,9 +123,11 @@ void Try::print_all(string inn){ // default: inn == ""
     
     if(this->endWordFlag && this->hasChildren()){
         cout << inn << endl;
+        this->returnRoot()->temp_suggests->push_back(inn);
     }
     if(this->endWordFlag && this->hasChildren() == false){
         cout << inn << endl;
+        this->returnRoot()->temp_suggests->push_back(inn);
     }
     
     for(int ii = 0; ii < ASCII_NUM; ii++){
@@ -156,13 +164,18 @@ string Try::find_one(string prefix, string inn){
     return result;
 }
 
+// HERE HERE
 void Try::print_all(string prefix, string inn){ // default: inn == ""
-    
+    string word = prefix + inn;
     if(this->endWordFlag && this->hasChildren()){
-        cout << prefix + inn << endl;
+        cout << word << endl;
+        this->returnRoot()->temp_suggests->push_back(word);
+        //cout << this->temp_suggests->size() << endl;
     }
     if(this->endWordFlag && this->hasChildren() == false){
-        cout << prefix + inn << endl;
+        cout << word << endl;
+        this->returnRoot()->temp_suggests->push_back(word);
+        //cout << this->temp_suggests->size() << endl;
     }
     
     for(int ii = 0; ii < ASCII_NUM; ii++){
@@ -182,7 +195,6 @@ void Try::hasPrefix(string inn){
     
     while(temp != "" && pass != NULL){
         // if its not null
-        
         if(temp.length() == 1){
            pass->print_all(inn,"");
         }
@@ -190,6 +202,19 @@ void Try::hasPrefix(string inn){
         temp = temp.substr(1,temp.length()-1);
         pass = pass->children[temp[0]];
     }
+}
+
+vector<string>* Try::hasPrefixAsVector(string inn){
+    vector<string>* my_suggestions;
+    // clear out the contents of suggestions every time you ask for a new one
+    this->temp_suggests->clear();
+    // build the vector in the traditional prefix function
+    this->hasPrefix(inn);
+    my_suggestions = this->temp_suggests;
+
+    //cout << "inside trie w/ size: " << this->temp_suggests->size() << endl;
+
+    return my_suggestions;
 }
 
 string Try::auto_complete(string inn){
