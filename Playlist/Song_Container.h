@@ -32,12 +32,15 @@ public:
     
     void add(Song*);
     Song* query(string _id);
+    // name is the song title
+    Song* query_by_name(string name);
     bool erase(string _id);
     
     void print();
     Try* load_trie_w_songs();
 
-    map<string,Song*> s_backend_id2name;
+    map<string,Song*> s_backend_id2name; // this actually returns the actual object
+    map<string,string> s_backend_name2id;
     static short int instance_count;
     
 private:

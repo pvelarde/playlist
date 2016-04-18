@@ -6,6 +6,7 @@
 #include <QStringListModel>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "Playlist_Container.h"
 #include "Song_Container.h"
 #include "Text_Parser.h"
@@ -38,6 +39,16 @@ Song_Container* sng_c = NULL;// new Song_Container();
 Playlist_Container* pl_c = NULL; // new Playlist_Container();
 Try* song_tree = NULL; // new Trie();
 
+std::string convStrNumStream2TitleStream(std::string inn_stream){
+    stringstream lineStream(inn_stream);
+    string song_title_stream = "";
+    string song_id;
+    while (lineStream >> song_id){
+        song_title_stream += (((song_title_stream == "")?(""):(", ")) + sng_c->query(song_id)->get_song_name());
+    }
+    return song_title_stream;
+}
+
 QAbstractItemModel *buildModel(){
     QStringList stringList;
 
@@ -51,7 +62,7 @@ QAbstractItemModel *buildModel(){
        /*std::cout << "id: " << pl_id << "my songs: " <<
        pl_c->query(pl_id)->my_song_stream << " popularity: " <<
        pl_c->query(pl_id)->getPopularity() << std::endl;*/
-       QString temp = QString::number(jj) + ": " + QString::fromStdString(pl_c->query(pl_id)->my_song_stream);
+       QString temp = QString::number(jj) + ": " + QString::fromStdString(convStrNumStream2TitleStream(pl_c->query(pl_id)->my_song_stream));
        //QString temp = "Playlist " + QString::number(ii); //QString::number(pl_c->pl_backend.size());
        stringList << temp;
     }
@@ -104,12 +115,16 @@ MainWindow::~MainWindow(){
 
 // bottom left functionality for the most popularly associated playlist
 void MainWindow::on_pushButton_clicked(){
-    songName = ui->textEdit->toPlainText();
+
+    QString Qinput = ui->textEdit->toPlainText();
+    string input = ui->textEdit->toPlainText().toLatin1().data();
+
     std::cout << "button clicked" << std::endl;
-
     ui->label_9->setStyleSheet("color:black; background-color:white");
-    ui->label_9->setText("changed");
 
+    // need to do error checking in the case that the program crashes
+    QString the_most_pop_playlist = QString::fromStdString(convStrNumStream2TitleStream(pl_c->query(sng_c->query_by_name(input)->get_song_most_pop_playlist_id())->my_song_stream));
+    ui->label_9->setText(the_most_pop_playlist);
 }
 
 void MainWindow::on_pushButton_2_clicked(){
@@ -131,27 +146,34 @@ void MainWindow::on_textEdit_textChanged(){
     suggestName = ui->textEdit->toPlainText();
     string input = suggestName.toLatin1().data();
     QStringList songSuggestions;
-    /*for (int i=0; i<4; i++)
-    {
-        QString songName;
-        if (i <= suggestName.length()) songName = suggestName[i];
-        else songName = "";
-        songSuggestions << songName;
-    }*/
-
-
-    //song_tree->hasPrefix();
     vector<string>* suggested_vector = song_tree->hasPrefixAsVector(input);
 
-    //std::cout << "inside vector: " << std::endl;
+    // sort the suggested_vector by song popularity
+    int nn = suggested_vector->size();
+    for (int ii = 0 ; ii < ( nn - 1 ); ii++){
+        for (int jj = 0 ; jj < nn - ii - 1; jj++){
+          if ( sng_c->query_by_name(suggested_vector->at(jj))->getPopularity() < sng_c->query_by_name(suggested_vector->at(jj + 1))->getPopularity()){ /* For decreasing order use < */
+              //std::cout << this->query(this->my_sorted_ids.at(jj))->getPopularity() << std::endl;
+            string swap = suggested_vector->at(jj);
+            suggested_vector->at(jj)   = suggested_vector->at(jj+1);
+            suggested_vector->at(jj+1) = swap;
+          }
+        }
+      }
+    // At this point, the song names sorted in the array are in popularity order
+
+
+
     for(int ii = 0; ii < suggested_vector->size(); ii++){
-        //std::cout << suggested_vector->at(ii) << std::endl;
-        songSuggestions << QString::fromStdString(suggested_vector->at(ii));
+        songSuggestions << (QString::fromStdString(suggested_vector->at(ii)) + " " + QString::number(sng_c->query_by_name(suggested_vector->at(ii))->getPopularity()));
     }
-    //std::cout << "leaving vector" << std::endl;
-    //std::cout << "vector size: " << suggested_vector.size() << std::endl;
 
     // HERE HERE - At this point you need to refine the displayed list to the top 4 most popular songs
+    //vector<string> top4MostPopSongMatches;
+
+
+
+
 
 
     QStringListModel *model = new QStringListModel(songSuggestions);

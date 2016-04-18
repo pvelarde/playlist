@@ -30,9 +30,18 @@ Song* Song_Container::query(string _id){
     return result;
 }
 
+// name is the song title
+Song* Song_Container::query_by_name(string name){
+    Song* result = NULL;
+    string song_id = this->s_backend_name2id.find(name)->second;
+    result = this->s_backend_id2name.find(song_id)->second;
+    return result;
+}
+
 void Song_Container::add(Song* new_s){
     //bool result;
     this->s_backend_id2name.insert(std::pair<string,Song*>(new_s->get_song_id(),new_s));
+    this->s_backend_name2id.insert(std::pair<string,string>(new_s->get_song_name(),new_s->get_song_id()));
     //return result;
 }
 
