@@ -298,7 +298,7 @@ color: grey;</string>
        <string notr="true"/>
       </property>
       <property name="placeholderText">
-       <string>Enter playlist IDs seperated by spaces...</string>
+       <string>Enter comma seperated songs...</string>
       </property>
      </widget>
      <widget class="QTextEdit" name="textEdit_4">

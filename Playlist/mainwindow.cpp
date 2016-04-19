@@ -36,7 +36,6 @@
     }
 */
 
-
 Song_Container* sng_c = NULL;// new Song_Container();
 Playlist_Container* pl_c = NULL; // new Playlist_Container();
 Try* song_tree = NULL; // new Trie();
@@ -164,6 +163,9 @@ void MainWindow::on_pushButton_3_clicked(){
 
     Playlist* new_pl = new Playlist(song_id_stream,playlistPopularity.toInt());
     pl_c->add(new_pl);
+
+    // std::cout << "songs ids: " << song_id_stream << " pop: " << playlistPopularity.toInt() << std::endl;
+
     pl_c->refine();
 
     // HERE HERE

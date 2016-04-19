@@ -29,9 +29,11 @@ Playlist::Playlist(){
 Playlist::Playlist(string playlist_id, string str_of_songs,int popularity){
     stringstream lineStream(str_of_songs);
     string song_id;
+   // vector<string> temp;
+    this->my_songs = new vector<string>();//temp;
     this->my_song_stream = str_of_songs;
     while (lineStream >> song_id)
-        this->my_songs.push_back(song_id);
+        this->my_songs->push_back(song_id);
     
     this->popularity = popularity;
     this->my_id = playlist_id;
@@ -41,9 +43,11 @@ Playlist::Playlist(string playlist_id, string str_of_songs,int popularity){
 Playlist::Playlist(string str_of_songs, int popularity){
     stringstream lineStream(str_of_songs);
     string song_id;
+    //vector<string> temp;
+    this->my_songs = new vector<string>();
     this->my_song_stream = str_of_songs;
     while (lineStream >> song_id)
-        this->my_songs.push_back(song_id);
+        this->my_songs->push_back(song_id);
     this->popularity = popularity;
 
     // generate a unique identifier
@@ -68,10 +72,19 @@ int Playlist::getPopularity(){
 }
 
 void Playlist::remove(){
+
+    //Friend Of God, Your Great Name, Collide, September
+
     // iterate through my songs, minusing their popularities
-    for(int ii = 0; ii < this->my_songs.size(); ii++){
-        string song_id = this->my_songs.at(ii);
-        sng_c->query(song_id)->remove_playlist(this->getId());
+    for(int ii = 0; ii < this->my_songs->size(); ii++){
+        string song_id = this->my_songs->at(ii);
+        //cout << this->getId() << endl;
+        //sng_c->query(song_id)->print_playlist_ids();
+        sng_c->query(song_id)->song_delete_playlist(this->getId());
+        //sng_c->query(song_id)->print_playlist_ids();
+        //std::cout << "id: " << song_id << " pop: " << sng_c->query(song_id)->getPopularity() << std::endl;
+        cout << song_id << endl;
     }
+    //cout << this->my_songs->size() << endl;
 }
 

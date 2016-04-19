@@ -56,6 +56,7 @@ public:
     string get_song_artist();
     void   set_song_popularity(int new_pop);
     string get_song_most_pop_playlist_id();
+    void print_playlist_ids();
     int getPopularity();
 
     //functions

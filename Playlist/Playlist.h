@@ -46,7 +46,7 @@ public:
     int getPopularity();
     
     // (This may be replaced with another datastructure) All songs in this play list access using the song's unqiue ID
-    vector<string> my_songs;
+    vector<string>* my_songs;
     
     // Pointer to the entire Playlist_Container
     Playlist_Container* pl_db;

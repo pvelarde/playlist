@@ -43,7 +43,7 @@ bool Song::song_delete_playlist(string play_id){
             song_playlist_ids.erase(iterator);
             if (pl_c->query(play_id)->getPopularity() == pl_c->query(this->song_most_pop_playlist_id)->getPopularity()) {
                 for (list<string>::iterator checkPop = this->song_playlist_ids.begin(); checkPop != this->song_playlist_ids.end(); ++checkPop) {
-                    if (*checkPop >= this->song_most_pop_playlist_id) {
+                    if (pl_c->query(*checkPop)->getPopularity() >= pl_c->query(this->song_most_pop_playlist_id)->getPopularity()) {
                         this->song_most_pop_playlist_id = *checkPop;
                     }
                 }
@@ -107,10 +107,15 @@ void Song::remove_playlist(string playlist_id){
             this->song_playlist_ids.erase(iterator);
         }
     }
-
     // now update the most popular song_most_pop_playlist_id
-    int run_max = sng_c->query(*(this->song_playlist_ids.begin()))->getPopularity();
-    string run_pop_id = *(this->song_playlist_ids.begin());
+
+
+
+  //  cout << this->song_playlist_ids.front() << endl; //Collide, September, Hey Joe
+    string cur_id = this->song_playlist_ids.front();
+    int run_max = sng_c->query(cur_id)->getPopularity();
+    //cout << run_max << endl;
+    string run_pop_id = cur_id;
     for ( list<string>::iterator iterator = this->song_playlist_ids.begin(); iterator != this->song_playlist_ids.end() ; ++iterator ){
         int temp_sng_pop = sng_c->query(*iterator)->getPopularity();
         if(temp_sng_pop > run_max){
@@ -122,7 +127,11 @@ void Song::remove_playlist(string playlist_id){
 
 }
 
-
+void Song::print_playlist_ids(){
+    for ( list<string>::iterator iterator = this->song_playlist_ids.begin(); iterator != this->song_playlist_ids.end() ; ++iterator ){
+        cout << *iterator << ' ';
+    } cout << endl;
+}
 
 
 
