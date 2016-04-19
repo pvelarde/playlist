@@ -82,6 +82,10 @@ QAbstractItemModel *buildModel(){
     return model;
 }
 
+void updateGUI(){
+
+}
+
 void setInitialState(){
     QString fileName = QDir::homePath() + "/Desktop/playlist/Playlist/";
     //cout << fileName.toLatin1().data() << endl;
@@ -141,8 +145,39 @@ void MainWindow::on_pushButton_2_clicked(){
     QString fileName = ui->textEdit_2->toPlainText();
     string sFileName = fileName.toLatin1().data();
     std::cout << "Attempting to Upload: " + sFileName << std::endl;
+    // test url: /Users/nick102795/Desktop/playlist/uploads/day01.txt
 
+    QFile inputFile(fileName);
+    if (inputFile.open(QIODevice::ReadOnly)){
+       QTextStream in(&inputFile);
+       srand(time(NULL));
+       while (!in.atEnd()){
+          QString line_temp = in.readLine();
+          string line = line_temp.toUtf8().constData();
+          string deliminator = "	";
 
+          string str_of_song_ids = "";
+          for(int ii = 0; ii < line.find(deliminator); ii++){
+              str_of_song_ids += line[ii];
+          }// + 2 since the deliminator is 2 characters long
+          line = line.substr(line.find(deliminator)+1,line.length()-line.find(deliminator)+1);
+          string pl_pop = line;
+          int pl_popularity = atoi(pl_pop.c_str()); // was stoi but this version of C++ is bad
+         //  std::cout << pl_pop << std::endl;
+
+          // pl_popularity, str_of_song_ids are set at this point
+          Playlist* new_pl = new Playlist(str_of_song_ids, pl_popularity);
+          //std::cout << "ID: " << temp_str << " title: " << str_of_song_ids << " popularity: "<< pl_popularity << std::endl;
+          pl_c->add(new_pl);
+          pl_c->refine();
+        }
+           inputFile.close();
+    }
+
+    QListView *listView = ui->mostPopularPlaylistListView;
+    QAbstractItemModel *model = buildModel();   // make the buildModel() func to intake the new most-popular PL strings
+    listView->setModel(model);
+    listView->show();
 
 }
 
@@ -160,16 +195,18 @@ void MainWindow::on_pushButton_3_clicked(){
 
     // Convert users input stream of song names to IDs
     //string song_id_stream = convTitleStream2StrNumStream(sPlaylistName);
-
-    Playlist* new_pl = new Playlist(song_id_stream,playlistPopularity.toInt());
-    pl_c->add(new_pl);
-
     // std::cout << "songs ids: " << song_id_stream << " pop: " << playlistPopularity.toInt() << std::endl;
 
+    Playlist* new_pl = new Playlist(song_id_stream,playlistPopularity.toInt());
+    // add a new playlist
+    pl_c->add(new_pl);
+    // refine is required to maintain the backend storage and so-on
     pl_c->refine();
 
-    // HERE HERE
-
+    QListView *listView = ui->mostPopularPlaylistListView;
+    QAbstractItemModel *model = buildModel();   // make the buildModel() func to intake the new most-popular PL strings
+    listView->setModel(model);
+    listView->show();
 }
 
 void MainWindow::on_textEdit_textChanged(){
@@ -196,7 +233,7 @@ void MainWindow::on_textEdit_textChanged(){
     // At this point, the song names sorted in the array are in popularity order
 
     for(int ii = 0; ii < suggested_vector->size(); ii++){
-        songSuggestions << (QString::fromStdString(suggested_vector->at(ii)) + " " + QString::number(sng_c->query_by_name(suggested_vector->at(ii))->getPopularity()));
+        songSuggestions << ((QString::fromStdString(suggested_vector->at(ii))) + " - " + QString::number(sng_c->query_by_name(suggested_vector->at(ii))->getPopularity()) + "🔥");
     }
 
     QStringListModel *model = new QStringListModel(songSuggestions);

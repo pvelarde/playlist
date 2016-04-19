@@ -153,41 +153,45 @@ Playlist_Container* Text_Parser::parse_playlist_text(){
 
 */
 
+    /*int line_count = 0;
     QFile inputFile(this->my_file);
     if (inputFile.open(QIODevice::ReadOnly))
     {
        QTextStream in(&inputFile);
        srand(time(NULL));
-       while (!in.atEnd())
-       {
-          QString line_temp = in.readLine();
-          string line = line_temp.toUtf8().constData();
-          string deliminator = "	";
+       while (!in.atEnd()){
+           line_count++;
+       }
+    inputFile.close();
+    }*/
 
-          string str_of_song_ids = "";
-          for(int ii = 0; ii < line.find(deliminator); ii++){
-              str_of_song_ids += line[ii];
-          }// + 2 since the deliminator is 2 characters long
-          line = line.substr(line.find(deliminator)+1,line.length()-line.find(deliminator)+1);
-          string pl_pop = line;
-          int pl_popularity = atoi(pl_pop.c_str()); // was stoi but this version of C++ is bad
-         //  std::cout << pl_pop << std::endl;
-
-          string temp_str = "";
-          for(unsigned int i = 0; i < 31; ++i){
-              temp_str += createRandom();
-          }
-          //cout << "temp string: " << temp_str << endl;
-
-          // pl_popularity, str_of_song_ids are set at this point
-          Playlist* new_pl = new Playlist(temp_str, str_of_song_ids, pl_popularity);
-          //std::cout << "ID: " << temp_str << " title: " << str_of_song_ids << " popularity: "<< pl_popularity << std::endl;
-          pl_c->add(new_pl);
-
-          //    qDebug() << line_temp;
+   // if(line_count <= 1024){
+        QFile inputFile(this->my_file);
+        if (inputFile.open(QIODevice::ReadOnly)){
+            QTextStream in(&inputFile);
+            srand(time(NULL));
+            while (!in.atEnd()){
+                QString line_temp = in.readLine();
+                string line = line_temp.toUtf8().constData();
+                string deliminator = "	";
+                string str_of_song_ids = "";
+                for(int ii = 0; ii < line.find(deliminator); ii++){
+                    str_of_song_ids += line[ii];
+                }// + 2 since the deliminator is 2 characters long
+                line = line.substr(line.find(deliminator)+1,line.length()-line.find(deliminator)+1);
+                string pl_pop = line;
+                int pl_popularity = atoi(pl_pop.c_str()); // was stoi but this version of C++ is bad
+                string temp_str = "";
+                for(unsigned int i = 0; i < 31; ++i){
+                    temp_str += createRandom();
+                }
+                // pl_popularity, str_of_song_ids are set at this point
+                Playlist* new_pl = new Playlist(temp_str, str_of_song_ids, pl_popularity);
+                //std::cout << "ID: " << temp_str << " title: " << str_of_song_ids << " popularity: "<< pl_popularity << std::endl;
+                pl_c->add(new_pl);
            }
            inputFile.close();
         }
-
+  //  }
     return pl_c;
 }

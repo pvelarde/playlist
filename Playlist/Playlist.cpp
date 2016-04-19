@@ -83,7 +83,7 @@ void Playlist::remove(){
         sng_c->query(song_id)->song_delete_playlist(this->getId());
         //sng_c->query(song_id)->print_playlist_ids();
         //std::cout << "id: " << song_id << " pop: " << sng_c->query(song_id)->getPopularity() << std::endl;
-        cout << song_id << endl;
+       // cout << song_id << endl;
     }
     //cout << this->my_songs->size() << endl;
 }
