@@ -104,15 +104,13 @@ Song_Container* Text_Parser::parse_song_text(){
     return sng_c;
 }
 
-static const char alphanum[] =
-"0123456789"
-"!@#$%^&*"
-"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-"abcdefghijklmnopqrstuvwxyz";
-
-int stringLength = sizeof(alphanum) - 1;
-
-char genRandom(){
+char createRandom(){
+    const char alphanum[] =
+    "0123456789"
+    "!@#$%^&*"
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "abcdefghijklmnopqrstuvwxyz";
+    int stringLength = sizeof(alphanum) - 1;
     return alphanum[rand() % stringLength];
 }
 
@@ -138,7 +136,7 @@ Playlist_Container* Text_Parser::parse_playlist_text(){
             srand(time(0));
             string temp_str = "";
             for(unsigned int i = 0; i < 31; ++i){
-                temp_str += genRandom();
+                temp_str += createRandom();
             }
             cout << temp_str << endl;
 
@@ -177,7 +175,7 @@ Playlist_Container* Text_Parser::parse_playlist_text(){
 
           string temp_str = "";
           for(unsigned int i = 0; i < 31; ++i){
-              temp_str += genRandom();
+              temp_str += createRandom();
           }
           //cout << "temp string: " << temp_str << endl;
 

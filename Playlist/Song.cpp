@@ -95,3 +95,39 @@ string Song::get_song_most_pop_playlist_id(){
 int Song::getPopularity(){
     return this->song_popularity;
 }
+
+void Song::remove_playlist(string playlist_id){
+    // remove the playlists associated playlist that way the popularity is still accurate
+    int remove_pop = pl_c->query(playlist_id)->getPopularity();
+    this->song_popularity -= remove_pop;
+
+    // erase the associated playlist ID
+    for ( list<string>::iterator iterator = this->song_playlist_ids.begin(); iterator != this->song_playlist_ids.end() ; ++iterator ){
+        if((*iterator) == playlist_id){
+            this->song_playlist_ids.erase(iterator);
+        }
+    }
+
+    // now update the most popular song_most_pop_playlist_id
+    int run_max = sng_c->query(*(this->song_playlist_ids.begin()))->getPopularity();
+    string run_pop_id = *(this->song_playlist_ids.begin());
+    for ( list<string>::iterator iterator = this->song_playlist_ids.begin(); iterator != this->song_playlist_ids.end() ; ++iterator ){
+        int temp_sng_pop = sng_c->query(*iterator)->getPopularity();
+        if(temp_sng_pop > run_max){
+            run_max = temp_sng_pop;
+            run_pop_id = *iterator;
+        }
+    }
+    this->song_most_pop_playlist_id = run_pop_id;
+
+}
+
+
+
+
+
+
+
+
+
+

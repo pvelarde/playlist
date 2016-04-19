@@ -11,6 +11,8 @@
 #include "Song_Container.h"
 #include "Text_Parser.h"
 #include "Try.h"
+#include "Song.h"
+#include "Playlist.h"
 #include <QString>
 #include <QFile>
 #include <QDir>
@@ -49,19 +51,28 @@ std::string convStrNumStream2TitleStream(std::string inn_stream){
     return song_title_stream;
 }
 
+std::string convTitleStream2StrNumStream(std::string inn_stream){
+    string song_id_stream = ""; //test single playlist input: Friend Of God, Your Great Name, Collide, September 63
+    std::string input = inn_stream;
+    std::istringstream lineStream(input);
+    std::string song_title;
+
+    int counter = 0;
+    while(std::getline(lineStream, song_title, ',')) {
+        if(counter != 0)
+            song_title = song_title.substr(1,song_title.size()-1);
+        counter++;
+        //std::cout << song_title << std::endl;
+        song_id_stream += (((song_id_stream == "")?(""):(" ")) + sng_c->query_by_name(song_title)->get_song_id());
+    }
+    //std::cout << "before: " << inn_stream << '\n' << "after: " << song_id_stream << std::endl;
+    return song_id_stream;
+}
+
 QAbstractItemModel *buildModel(){
     QStringList stringList;
-
-    /*for(int ii = 0; ii < 9; ii++){
-        QString temp = "Playlist " + QString::number(ii); //QString::number(pl_c->pl_backend.size());
-        stringList << temp;
-    }*/
-
     for(int ii = 1023, jj = 1; ii > 1015; ii--, jj++){
        string pl_id = pl_c->my_sorted_ids.at(ii);
-       /*std::cout << "id: " << pl_id << "my songs: " <<
-       pl_c->query(pl_id)->my_song_stream << " popularity: " <<
-       pl_c->query(pl_id)->getPopularity() << std::endl;*/
        QString temp = QString::number(jj) + ": " + QString::fromStdString(convStrNumStream2TitleStream(pl_c->query(pl_id)->my_song_stream));
        //QString temp = "Playlist " + QString::number(ii); //QString::number(pl_c->pl_backend.size());
        stringList << temp;
@@ -74,7 +85,7 @@ QAbstractItemModel *buildModel(){
 
 void setInitialState(){
     QString fileName = QDir::homePath() + "/Desktop/playlist/Playlist/";
-    //cout << QDir::homePath().toLatin1().data() << endl;
+    //cout << fileName.toLatin1().data() << endl;
     // load up songs from file
     Text_Parser* song_loader = new Text_Parser(fileName + "song_list.txt");
     Text_Parser* playlist_loader = new Text_Parser(fileName + "day00.txt");
@@ -128,15 +139,35 @@ void MainWindow::on_pushButton_clicked(){
 }
 
 void MainWindow::on_pushButton_2_clicked(){
-    fileName = ui->textEdit_2->toPlainText();
-    //std::cout << "button2 clicked" << std::endl;
+    QString fileName = ui->textEdit_2->toPlainText();
+    string sFileName = fileName.toLatin1().data();
+    std::cout << "Attempting to Upload: " + sFileName << std::endl;
+
+
+
 }
 
+// single playlist adding
 void MainWindow::on_pushButton_3_clicked(){
+    ui->textEdit_3->setStyleSheet("color:black; background-color:white");
     playlistName = ui->textEdit_3->toPlainText();
     playlistPopularity = ui->textEdit_4->toPlainText();
-    QString testString = playlistName + " " + playlistPopularity;
-    //std::cout << "button3 clicked" << std::endl;
+    string sPlaylistName = playlistName.toLatin1().data();
+    string sPlaylistPopularity = playlistPopularity.toLatin1().data();
+    string song_id_stream = convTitleStream2StrNumStream(sPlaylistName);
+
+    std::cout << "Single Playlist Submitted: " << (sPlaylistName + " " + sPlaylistPopularity) << std::endl;
+    //test single playlist input: Friend Of God, Your Great Name, Collide, September 63
+
+    // Convert users input stream of song names to IDs
+    //string song_id_stream = convTitleStream2StrNumStream(sPlaylistName);
+
+    Playlist* new_pl = new Playlist(song_id_stream,playlistPopularity.toInt());
+    pl_c->add(new_pl);
+    pl_c->refine();
+
+    // HERE HERE
+
 }
 
 void MainWindow::on_textEdit_textChanged(){
@@ -162,19 +193,9 @@ void MainWindow::on_textEdit_textChanged(){
       }
     // At this point, the song names sorted in the array are in popularity order
 
-
-
     for(int ii = 0; ii < suggested_vector->size(); ii++){
         songSuggestions << (QString::fromStdString(suggested_vector->at(ii)) + " " + QString::number(sng_c->query_by_name(suggested_vector->at(ii))->getPopularity()));
     }
-
-    // HERE HERE - At this point you need to refine the displayed list to the top 4 most popular songs
-    //vector<string> top4MostPopSongMatches;
-
-
-
-
-
 
     QStringListModel *model = new QStringListModel(songSuggestions);
     ui->listView->setModel(model);

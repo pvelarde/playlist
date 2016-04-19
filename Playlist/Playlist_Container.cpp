@@ -37,9 +37,10 @@ bool Playlist_Container::add(Playlist* new_pl){
 }
 
 bool Playlist_Container::erase(string _id){
-    bool result = false;
-    
-    
+    bool result = true;
+    Playlist* temp = this->pl_backend.find(_id)->second;
+    this->pl_backend.erase(_id);
+    delete temp;
     return result;
 }
 
@@ -95,5 +96,19 @@ void Playlist_Container::update_song_popularities(){
             sng_c->query(it->second->my_songs.at(ii))->song_add_playlist(it->second->getId());
         }
     }
+}
+
+// should be called after each add() after the inital load
+void Playlist_Container::refine(){
+    // sort all the objects by their ID
+    this->sort_me();
+    //access the least popular playlist
+    string weakest_pl_id = this->my_sorted_ids.at(0);
+
+    //remove the pair from the container,
+    //iterate through the songs in the pl & adjust their popularities
+
+    this->query(weakest_pl_id)->remove(); // remove the songs' pop from this playlist
+    this->erase(weakest_pl_id); // remove the actual object
 }
 

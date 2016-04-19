@@ -43,6 +43,8 @@ public:
     Playlist* query(string _id);
     bool add(Playlist* new_pl);
     bool erase(string _id);
+    // this is called after new playlists have been introduced to the container
+    void refine();
     void print();
 
     //this function will go through and query all live 1024 playlists. It will sort them based on popularity but store the

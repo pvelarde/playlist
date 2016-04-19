@@ -15,8 +15,11 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include "Song_Container.h"
+#include "Song.h"
+#include <cstdlib>
+#include <ctime>
 
-class Song;
 class Playlist_Container;
 
 using namespace std;
@@ -28,12 +31,18 @@ public:
     Playlist();
     
     Playlist(string playlist_id, string str_of_songs, int popularity);
+
+    Playlist(string str_of_songs, int popularity);
     
     ~Playlist();
     
     // Getters
     string getId();
     
+    // removes the intern components readying the object to be deleted for real
+    // Note: This DOESNT deallocate "this"
+    void remove();
+
     int getPopularity();
     
     // (This may be replaced with another datastructure) All songs in this play list access using the song's unqiue ID

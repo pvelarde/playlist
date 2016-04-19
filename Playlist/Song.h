@@ -61,6 +61,7 @@ public:
     //functions
     bool song_delete_playlist(string song_id);
     bool song_add_playlist(string playlist_id);
+    void remove_playlist(string playlist_id);
     
 private:
     //variables of song
