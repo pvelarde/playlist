@@ -19,27 +19,39 @@
 #include <QDebug>
 #include <cmath>
 
-/* // QString -> string
- cout << QDir::homePath().toLatin1().data() << endl; // convert Qstring to c_string
-*/
-
-/* // FILE I/O
-     QFile inputFile(fileName);
-    if (inputFile.open(QIODevice::ReadOnly))
-    {
-       QTextStream in(&inputFile);
-       while (!in.atEnd())
-       {
-          QString line = in.readLine();
-          qDebug() << line;
-       }
-       inputFile.close();
-    }
-*/
-
 Song_Container* sng_c = NULL;// new Song_Container();
 Playlist_Container* pl_c = NULL; // new Playlist_Container();
 Try* song_tree = NULL; // new Trie();
+
+//checks if a string stream is legal
+bool is_legal_input_str_stream(std::string in_ss){
+    bool result = true;
+    if(in_ss == ""){
+        result = false;
+        //std::cout << "illegal input: (Empty Input)" << std::endl;
+    }
+    else{
+        stringstream lineStream(in_ss);
+        string song_title;
+        while(std::getline(lineStream, song_title, ',')) {
+            // if the input string does not exist in the valid
+            // song tree it is not a valid string stream
+            if(song_title[0] == ' '){
+                song_title = song_title.substr(1, song_title.length()-1);
+            }
+
+            if(song_tree->check(song_title) == 0){
+                result = 0;
+                //std::cout << "illegal input: " << song_title << std::endl;
+                break;
+            }
+        }
+    }
+    if(result)
+        //std::cout << "legal input" << std::endl;
+
+    return result;
+}
 
 std::string redactParenthesis(std::string in_str){
     // This is a test function that is going to remove () from strings
@@ -62,9 +74,6 @@ std::string redactParenthesis(std::string in_str){
         if(ii <= in_str.length())
             result += in_str[ii];
     }
-
-    //std::cout << in_str << std::endl;
-    //std::cout << result << std::endl;
     return result;
 }
 
@@ -115,8 +124,12 @@ void updateGUI(){
 }
 
 void setInitialState(){
-    QString fileName = QDir::homePath() + "/Desktop/playlist/Playlist/";
-    //cout << fileName.toLatin1().data() << endl;
+    QString proj_location = QDir::currentPath() + "";
+    std::string project_root = proj_location.toLatin1().data();
+    int where_playlist_dir_ii = project_root.find("playlist");
+    std::string path_to_proj_dir = project_root.substr(0,where_playlist_dir_ii + 8);
+    QString fileName = QString::fromStdString((path_to_proj_dir + "/Playlist/"));
+
     // load up songs from file
     Text_Parser* song_loader = new Text_Parser(fileName + "song_list.txt");
     Text_Parser* playlist_loader = new Text_Parser(fileName + "day00.txt");
@@ -166,16 +179,14 @@ MainWindow::~MainWindow(){
 
 // bottom left functionality for the most popularly associated playlist
 void MainWindow::on_pushButton_clicked(){
-
     QString Qinput = ui->textEdit->toPlainText();
     string input = ui->textEdit->toPlainText().toLatin1().data();
-
-    std::cout << "button clicked" << std::endl;
-    ui->label_9->setStyleSheet("color:black; background-color:white");
-
-    // need to do error checking in the case that the program crashes
-    QString the_most_pop_playlist = QString::fromStdString(convStrNumStream2TitleStream(pl_c->query(sng_c->query_by_name(input)->get_song_most_pop_playlist_id())->my_song_stream));
-    ui->label_9->setText(the_most_pop_playlist);
+    if(song_tree->check(input) != 0){
+        ui->label_9->setStyleSheet("color:black; background-color:white");
+        // need to do error checking in the case that the program crashes
+        QString the_most_pop_playlist = QString::fromStdString(convStrNumStream2TitleStream(pl_c->query(sng_c->query_by_name(input)->get_song_most_pop_playlist_id())->my_song_stream));
+        ui->label_9->setText(the_most_pop_playlist);
+    }
 }
 
 void MainWindow::on_pushButton_2_clicked(){
@@ -234,79 +245,96 @@ void MainWindow::on_pushButton_3_clicked(){
     playlistPopularity = ui->textEdit_4->toPlainText();
     string sPlaylistName = playlistName.toLatin1().data();
     string sPlaylistPopularity = playlistPopularity.toLatin1().data();
-    string song_id_stream = convTitleStream2StrNumStream(sPlaylistName);
-    std::cout << "Single Playlist Submitted: " << (sPlaylistName + " " + sPlaylistPopularity) << std::endl;
     //test single playlist input: Friend Of God, Your Great Name, Collide, September 63
 
-    Playlist* new_pl = new Playlist(song_id_stream,playlistPopularity.toInt());
-    // add a new playlist
-    pl_c->add(new_pl);
+    bool is_legal_pop = true;
+    bool is_legal_ss = is_legal_input_str_stream(sPlaylistName);
+    int dec = playlistPopularity.toInt(&is_legal_pop, 10);
 
-    // add this playlists popularity to the song's pop
-    for(int ii = 0; ii < new_pl->my_songs->size(); ii++){
-        std::string member_song_id = new_pl->my_songs->at(ii);
-        // sng_c->query(member_song_id)->set_song_popularity(sng_c->query(member_song_id)->getPopularity() + new_pl->getPopularity());
-        sng_c->query((member_song_id))->song_add_playlist(new_pl->my_id);
+    // some general console error logs
+    if(!is_legal_ss && !is_legal_pop){
+        std::cout << "illegal stream & illegal popularity inputs" << std::endl;
+    }
+    else if(!is_legal_ss){
+        std::cout << "illegal stream input" << std::endl;
+    }
+    else if(!is_legal_pop){
+        std::cout << "illegal popularity input" << std::endl;
     }
 
-    // refine is required to maintain the backend storage and so-on
-    pl_c->refine();
 
-    QListView *listView = ui->mostPopularPlaylistListView;
-    QAbstractItemModel *model = buildModel();   // make the buildModel() func to intake the new most-popular PL strings
-    listView->setModel(model);
-    listView->show();
+    if(is_legal_ss && is_legal_pop){
+        string song_id_stream = convTitleStream2StrNumStream(sPlaylistName);
+        std::cout << "Single Playlist Submitted: " << (sPlaylistName + " " + sPlaylistPopularity) << std::endl;
+
+        Playlist* new_pl = new Playlist(song_id_stream,playlistPopularity.toInt());
+        // add a new playlist
+        pl_c->add(new_pl);
+
+        // add this playlists popularity to the song's pop
+        for(int ii = 0; ii < new_pl->my_songs->size(); ii++){
+            std::string member_song_id = new_pl->my_songs->at(ii);
+            // sng_c->query(member_song_id)->set_song_popularity(sng_c->query(member_song_id)->getPopularity() + new_pl->getPopularity());
+            sng_c->query((member_song_id))->song_add_playlist(new_pl->my_id);
+        }
+
+        // refine is required to maintain the backend storage and so-on
+        pl_c->refine();
+        QListView *listView = ui->mostPopularPlaylistListView;
+        QAbstractItemModel *model = buildModel();   // make the buildModel() func to intake the new most-popular PL strings
+        listView->setModel(model);
+        listView->show();
+    }
 }
 
 void MainWindow::on_textEdit_textChanged(){
     ui->label_9->setStyleSheet("color:grey; background-color:white");
     ui->label_9->setText("The most popularly matched playlist...");
-
     suggestName = ui->textEdit->toPlainText();
     string input = suggestName.toLatin1().data();
     QStringList songSuggestions;
     vector<string>* suggested_vector = song_tree->hasPrefixAsVector(input);
 
-    // sort the suggested_vector by song popularity
-    int nn = suggested_vector->size();
-    for (int ii = 0 ; ii < ( nn - 1 ); ii++){
-        for (int jj = 0 ; jj < nn - ii - 1; jj++){
-          if ( sng_c->query_by_name(suggested_vector->at(jj))->getPopularity() < sng_c->query_by_name(suggested_vector->at(jj + 1))->getPopularity()){ /* For decreasing order use < */
-              //std::cout << this->query(this->my_sorted_ids.at(jj))->getPopularity() << std::endl;
-            string swap = suggested_vector->at(jj);
-            suggested_vector->at(jj)   = suggested_vector->at(jj+1);
-            suggested_vector->at(jj+1) = swap;
-          }
+    // check otherwise the vector could go out of range
+    if(suggested_vector->size() > 0){
+        // sort the suggested_vector by song popularity
+        int nn = suggested_vector->size();
+        for (int ii = 0 ; ii < ( nn - 1 ); ii++){
+            for (int jj = 0 ; jj < nn - ii - 1; jj++){
+                if ( sng_c->query_by_name(suggested_vector->at(jj))->getPopularity() < sng_c->query_by_name(suggested_vector->at(jj + 1))->getPopularity()){ /* For decreasing order use < */
+                    //std::cout << this->query(this->my_sorted_ids.at(jj))->getPopularity() << std::endl;
+                    string swap = suggested_vector->at(jj);
+                    suggested_vector->at(jj)   = suggested_vector->at(jj+1);
+                    suggested_vector->at(jj+1) = swap;
+                }
+            }
         }
-      }
-    // At this point, the song names sorted in the array are in popularity order
+        // At this point, the song names sorted in the array are in popularity order
+        double highest_found_pop = sng_c->query_by_name(suggested_vector->at(0))->getPopularity() * 1.0;
+        int first_third=floor(highest_found_pop/3), second_third=(2*first_third);
+        std::string fire = "🔥";
+        for(int ii = 0; ii < suggested_vector->size(); ii++){
+            std::string cur = suggested_vector->at(ii);
+            int cur_pop = sng_c->query_by_name(cur)->getPopularity();
 
-    double highest_found_pop = sng_c->query_by_name(suggested_vector->at(0))->getPopularity() * 1.0;
-    int first_third=floor(highest_found_pop/3), second_third=(2*first_third);
-
-    std::string fire = "🔥";
-
-    for(int ii = 0; ii < suggested_vector->size(); ii++){
-        std::string cur = suggested_vector->at(ii);
-        int cur_pop = sng_c->query_by_name(cur)->getPopularity();
-
-        std::string fire_rating;
-        if(cur_pop == 0){
-            fire_rating = "";
+            std::string fire_rating;
+            if(cur_pop == 0){
+                fire_rating = "";
+            }
+            else if(cur_pop <= first_third){
+                fire_rating = fire;
+            }
+            else if(cur_pop <= second_third){
+                fire_rating = fire +fire;
+            }
+            else{
+                fire_rating = fire + fire + fire;
+            }
+            songSuggestions << ((QString::fromStdString(cur)) + " - " + QString::number(cur_pop) + QString::fromStdString(fire_rating));
         }
-        else if(cur_pop <= first_third){
-            fire_rating = fire;
-        }
-        else if(cur_pop <= second_third){
-            fire_rating = fire +fire;
-        }
-        else{
-            fire_rating = fire + fire + fire;
-        }
-
-        songSuggestions << ((QString::fromStdString(cur)) + " - " + QString::number(cur_pop) + QString::fromStdString(fire_rating));
     }
 
+    songSuggestions << "";
     QStringListModel *model = new QStringListModel(songSuggestions);
     ui->listView->setModel(model);
 }

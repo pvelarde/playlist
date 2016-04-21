@@ -624,6 +624,8 @@ compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp
 moc_mainwindow.cpp: /Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QString \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		../Playlist/mainwindow.h
 	/Users/nick102795/Qt/5.5/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -I/Users/nick102795/Qt/5.5/clang_64/mkspecs/macx-clang -I/Users/nick102795/Desktop/main/School/College/year3/EC504/playlist/Playlist -I/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers -I/Users/nick102795/Qt/5.5/clang_64/lib/QtGui.framework/Headers -I/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers -I. -F/Users/nick102795/Qt/5.5/clang_64/lib ../Playlist/mainwindow.h -o moc_mainwindow.cpp
 
@@ -650,6 +652,8 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 main.o: ../Playlist/main.cpp ../Playlist/mainwindow.h \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QString \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Playlist/main.cpp
@@ -657,6 +661,8 @@ main.o: ../Playlist/main.cpp ../Playlist/mainwindow.h \
 mainwindow.o: ../Playlist/mainwindow.cpp ../Playlist/mainwindow.h \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QString \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		ui_mainwindow.h \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QListView \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qlistview.h \
@@ -665,32 +671,95 @@ mainwindow.o: ../Playlist/mainwindow.cpp ../Playlist/mainwindow.h \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QStringListModel \
-		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qstringlistmodel.h
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qstringlistmodel.h \
+		../Playlist/Playlist_Container.h \
+		../Playlist/Song_Container.h \
+		../Playlist/Try.h \
+		../Playlist/Song.h \
+		../Playlist/Text_Parser.h \
+		../Playlist/Playlist.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QFile \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QDir \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qdir.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QDebug \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qdebug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Playlist/mainwindow.cpp
 
 Playlist_Container.o: ../Playlist/Playlist_Container.cpp ../Playlist/Playlist_Container.h \
+		../Playlist/mainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QString \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../Playlist/Song_Container.h \
+		../Playlist/Try.h \
+		../Playlist/Song.h \
 		../Playlist/Playlist.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Playlist_Container.o ../Playlist/Playlist_Container.cpp
 
-Playlist.o: ../Playlist/Playlist.cpp ../Playlist/Playlist.h
+Playlist.o: ../Playlist/Playlist.cpp ../Playlist/Playlist.h \
+		../Playlist/Song_Container.h \
+		../Playlist/mainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QString \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../Playlist/Try.h \
+		../Playlist/Song.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Playlist.o ../Playlist/Playlist.cpp
 
 Song_Container.o: ../Playlist/Song_Container.cpp ../Playlist/Song_Container.h \
+		../Playlist/mainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QString \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../Playlist/Try.h \
 		../Playlist/Song.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Song_Container.o ../Playlist/Song_Container.cpp
 
-Song.o: ../Playlist/Song.cpp ../Playlist/Song.h
+Song.o: ../Playlist/Song.cpp ../Playlist/Song.h \
+		../Playlist/Song_Container.h \
+		../Playlist/mainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QString \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../Playlist/Try.h \
+		../Playlist/Playlist.h \
+		../Playlist/Playlist_Container.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Song.o ../Playlist/Song.cpp
 
 Text_Parser.o: ../Playlist/Text_Parser.cpp ../Playlist/Text_Parser.h \
 		../Playlist/Song_Container.h \
+		../Playlist/mainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QString \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../Playlist/Try.h \
 		../Playlist/Playlist_Container.h \
 		../Playlist/Song.h \
-		../Playlist/Playlist.h
+		../Playlist/Playlist.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QFile \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QDir \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qdir.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QDebug \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qdebug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Text_Parser.o ../Playlist/Text_Parser.cpp
 
 Top8_Playlist_Container.o: ../Playlist/Top8_Playlist_Container.cpp ../Playlist/Top8_Playlist_Container.h \
-		../Playlist/Playlist_Container.h
+		../Playlist/Playlist_Container.h \
+		../Playlist/mainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QString \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../Playlist/Song_Container.h \
+		../Playlist/Try.h \
+		../Playlist/Song.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Top8_Playlist_Container.o ../Playlist/Top8_Playlist_Container.cpp
 
 Try.o: ../Playlist/Try.cpp ../Playlist/Try.h

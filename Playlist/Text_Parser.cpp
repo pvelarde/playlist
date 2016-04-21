@@ -16,7 +16,12 @@ Text_Parser::~Text_Parser(){
 
 }
 
-/*QFile inputFile(fileName);
+/* // QString -> string
+ cout << QDir::homePath().toLatin1().data() << endl; // convert Qstring to c_string
+*/
+
+/* // FILE I/O
+     QFile inputFile(fileName);
     if (inputFile.open(QIODevice::ReadOnly))
     {
        QTextStream in(&inputFile);
@@ -26,7 +31,8 @@ Text_Parser::~Text_Parser(){
           qDebug() << line;
        }
        inputFile.close();
-    }*/
+    }
+*/
 
 Song_Container* Text_Parser::parse_song_text(){
     Song_Container * sng_c = new Song_Container();

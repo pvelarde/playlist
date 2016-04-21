@@ -39,7 +39,7 @@ public:
     QListView *listView;
     QLabel *label_2;
     QLabel *label_3;
-    QTextEdit *textEdit_5;
+    QLabel *label_9;
     QFrame *uploadFrame;
     QFrame *frame;
     QPushButton *pushButton_2;
@@ -67,21 +67,30 @@ public:
 "border-radius:2px;\n"
 "}\n"
 "\n"
+"[objectName=\"centralWidget\"]{\n"
+"background-color:black;\n"
+"}\n"
+"\n"
 "QLabel{\n"
-"background-color: rgb(38, 180, 17);\n"
+"background-color: rgb(121, 208, 141);\n"
 "}\n"
 "QListView{\n"
 "}\n"
 "QPushButton {\n"
 "margin-left:2px;\n"
-"margin-top:-5px;\n"
-"padding-top:-2px;\n"
-"background:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(38, 180, 17), stop:1 rgb(26, 122, 12));\n"
+"margin-top:0px;\n"
+"background:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(121, 208, 141), stop:1 rgb(41, 194, 18));\n"
+"border-width: 2px;\n"
+"border-style: solid;\n"
+"border-color: rgb(34, 159, 15);\n"
+"border-radius: 6px;\n"
 "}\n"
 "\n"
 "QFrame {\n"
-"/*background:orange;*/\n"
-"border: black;\n"
+"border-width: 2px;\n"
+"border-style: solid;\n"
+"border-color: black;\n"
+"border-radius: 6px;\n"
 "}\n"
 "\n"
 "QTextEdit{\n"
@@ -109,14 +118,14 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         mostPopularPlaylistListView = new QListView(centralWidget);
         mostPopularPlaylistListView->setObjectName(QStringLiteral("mostPopularPlaylistListView"));
-        mostPopularPlaylistListView->setGeometry(QRect(50, 50, 800, 141));
+        mostPopularPlaylistListView->setGeometry(QRect(50, 50, 800, 161));
         mostPopularPlaylistListView->setStyleSheet(QStringLiteral(""));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(375, 20, 150, 20));
         searchFrame = new QFrame(centralWidget);
         searchFrame->setObjectName(QStringLiteral("searchFrame"));
-        searchFrame->setGeometry(QRect(50, 229, 380, 320));
+        searchFrame->setGeometry(QRect(50, 229, 380, 301));
         searchFrame->setStyleSheet(QStringLiteral(""));
         searchFrame->setFrameShape(QFrame::StyledPanel);
         searchFrame->setFrameShadow(QFrame::Raised);
@@ -129,26 +138,30 @@ public:
         listView = new QListView(searchFrame);
         listView->setObjectName(QStringLiteral("listView"));
         listView->setGeometry(QRect(10, 70, 251, 111));
-        listView->setStyleSheet(QStringLiteral(""));
+        listView->setStyleSheet(QStringLiteral("margin-top:2px;"));
         label_2 = new QLabel(searchFrame);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(10, 200, 150, 20));
+        label_2->setGeometry(QRect(10, 190, 141, 20));
         label_3 = new QLabel(searchFrame);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(115, 10, 150, 20));
+        label_3->setGeometry(QRect(130, 10, 121, 20));
         label_3->setAlignment(Qt::AlignCenter);
-        textEdit_5 = new QTextEdit(searchFrame);
-        textEdit_5->setObjectName(QStringLiteral("textEdit_5"));
-        textEdit_5->setGeometry(QRect(10, 220, 251, 31));
+        label_9 = new QLabel(searchFrame);
+        label_9->setObjectName(QStringLiteral("label_9"));
+        label_9->setGeometry(QRect(10, 220, 361, 71));
+        label_9->setStyleSheet(QLatin1String("background-color:white;\n"
+"color: grey;"));
+        label_9->setScaledContents(false);
+        label_9->setWordWrap(true);
         pushButton->raise();
         textEdit->raise();
         listView->raise();
         label_2->raise();
         label_3->raise();
-        textEdit_5->raise();
+        label_9->raise();
         uploadFrame = new QFrame(centralWidget);
         uploadFrame->setObjectName(QStringLiteral("uploadFrame"));
-        uploadFrame->setGeometry(QRect(440, 230, 391, 291));
+        uploadFrame->setGeometry(QRect(440, 230, 391, 301));
         uploadFrame->setFrameShape(QFrame::StyledPanel);
         uploadFrame->setFrameShadow(QFrame::Raised);
         frame = new QFrame(uploadFrame);
@@ -165,7 +178,7 @@ public:
         textEdit_2->setStyleSheet(QStringLiteral(""));
         frame_2 = new QFrame(uploadFrame);
         frame_2->setObjectName(QStringLiteral("frame_2"));
-        frame_2->setGeometry(QRect(10, 159, 370, 121));
+        frame_2->setGeometry(QRect(10, 159, 370, 131));
         frame_2->setFrameShape(QFrame::StyledPanel);
         frame_2->setFrameShadow(QFrame::Raised);
         textEdit_3 = new QTextEdit(frame_2);
@@ -182,19 +195,19 @@ public:
         pushButton_3->setGeometry(QRect(270, 30, 91, 91));
         label_7 = new QLabel(frame_2);
         label_7->setObjectName(QStringLiteral("label_7"));
-        label_7->setGeometry(QRect(20, 10, 140, 17));
+        label_7->setGeometry(QRect(20, 10, 91, 17));
         label_8 = new QLabel(frame_2);
         label_8->setObjectName(QStringLiteral("label_8"));
-        label_8->setGeometry(QRect(20, 70, 140, 20));
+        label_8->setGeometry(QRect(20, 70, 121, 20));
         label_5 = new QLabel(uploadFrame);
         label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setGeometry(QRect(10, 50, 100, 16));
+        label_5->setGeometry(QRect(10, 50, 71, 16));
         label_6 = new QLabel(uploadFrame);
         label_6->setObjectName(QStringLiteral("label_6"));
-        label_6->setGeometry(QRect(10, 140, 100, 16));
+        label_6->setGeometry(QRect(10, 140, 101, 16));
         label_4 = new QLabel(uploadFrame);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(115, 10, 150, 20));
+        label_4->setGeometry(QRect(130, 10, 111, 20));
         label_4->setAlignment(Qt::AlignCenter);
         MainWindow->setCentralWidget(centralWidget);
         searchFrame->raise();
@@ -209,7 +222,7 @@ public:
         MainWindow->setStatusBar(statusBar);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 900, 25));
+        menuBar->setGeometry(QRect(0, 0, 900, 22));
         MainWindow->setMenuBar(menuBar);
 
         retranslateUi(MainWindow);
@@ -221,10 +234,15 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         label->setText(QApplication::translate("MainWindow", "Most Popular Playlists", 0));
+        textEdit->setPlaceholderText(QApplication::translate("MainWindow", "Search a song...", 0));
         pushButton->setText(QApplication::translate("MainWindow", "Go", 0));
         label_2->setText(QApplication::translate("MainWindow", "Most Popular Playlist", 0));
         label_3->setText(QApplication::translate("MainWindow", "Search for a Song", 0));
+        label_9->setText(QApplication::translate("MainWindow", "The most popularly matched playlist...", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "Go", 0));
+        textEdit_2->setPlaceholderText(QApplication::translate("MainWindow", "Enter absolute path to a .txt of playlists", 0));
+        textEdit_3->setPlaceholderText(QApplication::translate("MainWindow", "Enter comma seperated songs...", 0));
+        textEdit_4->setPlaceholderText(QApplication::translate("MainWindow", "Enter playlist's popularity...", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "Go", 0));
         label_7->setText(QApplication::translate("MainWindow", "Playlist Name", 0));
         label_8->setText(QApplication::translate("MainWindow", "Playlist Popularity", 0));
