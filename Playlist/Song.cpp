@@ -20,6 +20,7 @@ Song::Song(){
     song_artist             = "";
     song_most_pop_playlist_id  = "NULL";
     song_popularity         = 0;
+    song_playlist_ids = new list<string>;
 }
 
 Song::Song(string sg_id, string sg_title, string sg_artist){
@@ -28,6 +29,7 @@ Song::Song(string sg_id, string sg_title, string sg_artist){
     song_artist             = sg_artist;
     song_most_pop_playlist_id  = ""; //the most popular pl's ID
     song_popularity         = 0;
+    song_playlist_ids = new list<string>;
 }
 
 Song::~Song(){
@@ -38,11 +40,11 @@ bool Song::song_delete_playlist(string play_id){
     bool result = false;
     this->song_popularity = this->song_popularity - pl_c->query(play_id)->getPopularity();
     
-    for ( list<string>::iterator iterator = this->song_playlist_ids.begin(); iterator != this->song_playlist_ids.end() ; ++iterator ){
+    for ( list<string>::iterator iterator = this->song_playlist_ids->begin(); iterator != this->song_playlist_ids->end() ; ++iterator ){
         if (play_id == *iterator) {
-            song_playlist_ids.erase(iterator);
+            song_playlist_ids->erase(iterator);
             if (pl_c->query(play_id)->getPopularity() == pl_c->query(this->song_most_pop_playlist_id)->getPopularity()) {
-                for (list<string>::iterator checkPop = this->song_playlist_ids.begin(); checkPop != this->song_playlist_ids.end(); ++checkPop) {
+                for (list<string>::iterator checkPop = this->song_playlist_ids->begin(); checkPop != this->song_playlist_ids->end(); ++checkPop) {
                     if (pl_c->query(*checkPop)->getPopularity() >= pl_c->query(this->song_most_pop_playlist_id)->getPopularity()) {
                         this->song_most_pop_playlist_id = *checkPop;
                     }
@@ -56,7 +58,7 @@ bool Song::song_delete_playlist(string play_id){
 
 bool Song::song_add_playlist(string playlist_id){
     //add id to the list
-    this->song_playlist_ids.push_front(playlist_id);
+    this->song_playlist_ids->push_front(playlist_id);
 
     // add to the song's popularity (sum of its constituent playlists' popularities)
     this->song_popularity += pl_c->query(playlist_id)->getPopularity();
@@ -102,21 +104,21 @@ void Song::remove_playlist(string playlist_id){
     this->song_popularity -= remove_pop;
 
     // erase the associated playlist ID
-    for ( list<string>::iterator iterator = this->song_playlist_ids.begin(); iterator != this->song_playlist_ids.end() ; ++iterator ){
+    for ( list<string>::iterator iterator = this->song_playlist_ids->begin(); iterator != this->song_playlist_ids->end() ; ++iterator ){
         if((*iterator) == playlist_id){
-            this->song_playlist_ids.erase(iterator);
+            this->song_playlist_ids->erase(iterator);
         }
     }
     // now update the most popular song_most_pop_playlist_id
 
 
 
-  //  cout << this->song_playlist_ids.front() << endl; //Collide, September, Hey Joe
-    string cur_id = this->song_playlist_ids.front();
+  //  cout << this->song_playlist_ids->front() << endl; //Collide, September, Hey Joe
+    string cur_id = this->song_playlist_ids->front();
     int run_max = sng_c->query(cur_id)->getPopularity();
     //cout << run_max << endl;
     string run_pop_id = cur_id;
-    for ( list<string>::iterator iterator = this->song_playlist_ids.begin(); iterator != this->song_playlist_ids.end() ; ++iterator ){
+    for ( list<string>::iterator iterator = this->song_playlist_ids->begin(); iterator != this->song_playlist_ids->end() ; ++iterator ){
         int temp_sng_pop = sng_c->query(*iterator)->getPopularity();
         if(temp_sng_pop > run_max){
             run_max = temp_sng_pop;
@@ -128,7 +130,7 @@ void Song::remove_playlist(string playlist_id){
 }
 
 void Song::print_playlist_ids(){
-    for ( list<string>::iterator iterator = this->song_playlist_ids.begin(); iterator != this->song_playlist_ids.end() ; ++iterator ){
+    for ( list<string>::iterator iterator = this->song_playlist_ids->begin(); iterator != this->song_playlist_ids->end() ; ++iterator ){
         cout << *iterator << ' ';
     } cout << endl;
 }

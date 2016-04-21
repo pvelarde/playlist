@@ -72,7 +72,7 @@ private:
     string song_most_pop_playlist_id;
     int song_popularity;
     
-    list<string> song_playlist_ids;
+    list<string>* song_playlist_ids;
 
 protected:
     
