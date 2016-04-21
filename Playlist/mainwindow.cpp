@@ -18,6 +18,7 @@
 #include <QDir>
 #include <QDebug>
 #include <cmath>
+#include <QFileDialog>
 
 Song_Container* sng_c = NULL;// new Song_Container();
 Playlist_Container* pl_c = NULL; // new Playlist_Container();
@@ -123,16 +124,19 @@ void updateGUI(){
 
 }
 
+QString QProjectLocation = "";
 void setInitialState(){
     QString proj_location = QDir::currentPath() + "";
     std::string project_root = proj_location.toLatin1().data();
     int where_playlist_dir_ii = project_root.find("playlist");
     std::string path_to_proj_dir = project_root.substr(0,where_playlist_dir_ii + 8);
     QString fileName = QString::fromStdString((path_to_proj_dir + "/Playlist/"));
+    QProjectLocation = QString::fromStdString(path_to_proj_dir);
 
     // load up songs from file
     Text_Parser* song_loader = new Text_Parser(fileName + "song_list.txt");
-    Text_Parser* playlist_loader = new Text_Parser(fileName + "day00.txt");
+    // This will however only load the first 2014 playlists due to the project contraints
+    Text_Parser* playlist_loader = new Text_Parser(fileName + "all_playlists.txt");
 
     // load up the backend datastructures here
     // create song objects
@@ -151,21 +155,6 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWind
     ui->setupUi(this);
     // build all initial backend structures & load the appropriate data from files
     setInitialState();
-
-
-
-
-
-
-
-
-
-
-    /*for(int ii = 1023; ii > 1015; ii--){
-        string pl_id = pl_c->my_sorted_ids.at(ii);
-        std::cout << "id: " << pl_id << "my songs: " << pl_c->query(pl_id)->my_song_stream << " popularity: " << pl_c->query(pl_id)->getPopularity() << std::endl;
-    }*/
-
     // Set Up the top 8 Most Popular Playlists
     QListView *listView = ui->mostPopularPlaylistListView;
     QAbstractItemModel *model = buildModel();   // make the buildModel() func to intake the new most-popular PL strings
@@ -196,11 +185,17 @@ void MainWindow::on_pushButton_2_clicked(){
     std::cout << "Attempting to Upload: " + sFileName << std::endl;
     // test url: /Users/nick102795/Desktop/main/School/College/year3/EC504/playlist/uploads/day01.txt
 
+    int line_counter = 1;
     QFile inputFile(fileName);
     if (inputFile.open(QIODevice::ReadOnly)){
        QTextStream in(&inputFile);
        srand(time(NULL));
        while (!in.atEnd()){
+           if(line_counter > 128){
+               // one is only allowed to upload 128 lines
+               break;
+           }
+
           QString line_temp = in.readLine();
           string line = line_temp.toUtf8().constData();
           string deliminator = "	";
@@ -228,6 +223,7 @@ void MainWindow::on_pushButton_2_clicked(){
           }
 
           pl_c->refine();
+          line_counter++;
         }
            inputFile.close();
            QListView *listView = ui->mostPopularPlaylistListView;
@@ -238,6 +234,7 @@ void MainWindow::on_pushButton_2_clicked(){
     else{
         std::cout << "Failed to open: " << sFileName << std::endl;
     }
+    ui->textEdit_2->setText("");
 }
 
 // single playlist adding
@@ -263,7 +260,6 @@ void MainWindow::on_pushButton_3_clicked(){
     else if(!is_legal_pop){
         std::cout << "illegal popularity input" << std::endl;
     }
-
 
     if(is_legal_ss && is_legal_pop){
         string song_id_stream = convTitleStream2StrNumStream(sPlaylistName);
@@ -339,4 +335,17 @@ void MainWindow::on_textEdit_textChanged(){
     songSuggestions << "";
     QStringListModel *model = new QStringListModel(songSuggestions);
     ui->listView->setModel(model);
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),QProjectLocation,tr("(*.txt)"));
+    std::cout << fileName.toLatin1().data() << std::endl;
+    if(fileName == ""){
+        std::cout << "empty" << std::endl;
+    }
+    else{
+        ui->textEdit_2->setText(fileName); //labe->setText(
+    }
+
 }
