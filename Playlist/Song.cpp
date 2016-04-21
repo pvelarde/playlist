@@ -70,12 +70,11 @@ bool Song::song_add_playlist(string playlist_id){
     else if (pl_c->query(playlist_id)->getPopularity() >= pl_c->query(song_most_pop_playlist_id)->getPopularity()) {
         this->song_most_pop_playlist_id = playlist_id;
     }
-    
     return true;
 }
 
 void Song::set_song_popularity(int new_pop){
-    this->song_popularity = new_pop;
+    this->song_popularity = new_pop;    
 }
 
 string Song::get_song_id(){

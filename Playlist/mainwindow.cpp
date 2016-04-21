@@ -72,7 +72,7 @@ QAbstractItemModel *buildModel(){
     QStringList stringList;
     for(int ii = 1023, jj = 1; ii > 1015; ii--, jj++){
        string pl_id = pl_c->my_sorted_ids.at(ii);
-       QString temp = QString::number(jj) + ": " + QString::fromStdString(convStrNumStream2TitleStream(pl_c->query(pl_id)->my_song_stream));
+       QString temp = QString::number(jj) + ": " + QString::fromStdString(convStrNumStream2TitleStream(pl_c->query(pl_id)->my_song_stream)) + " - " + QString::number(pl_c->query(pl_id)->getPopularity()) + "👍";
        //QString temp = "Playlist " + QString::number(ii); //QString::number(pl_c->pl_backend.size());
        stringList << temp;
     }
@@ -163,12 +163,21 @@ void MainWindow::on_pushButton_2_clicked(){
           line = line.substr(line.find(deliminator)+1,line.length()-line.find(deliminator)+1);
           string pl_pop = line;
           int pl_popularity = atoi(pl_pop.c_str()); // was stoi but this version of C++ is bad
+          std::cout << pl_popularity << std::endl;
          //  std::cout << pl_pop << std::endl;
 
           // pl_popularity, str_of_song_ids are set at this point
           Playlist* new_pl = new Playlist(str_of_song_ids, pl_popularity);
           //std::cout << "ID: " << temp_str << " title: " << str_of_song_ids << " popularity: "<< pl_popularity << std::endl;
           pl_c->add(new_pl);
+
+          // add this playlists popularity to the song's pop
+          for(int ii = 0; ii < new_pl->my_songs->size(); ii++){
+              std::string member_song_id = new_pl->my_songs->at(ii);
+              // sng_c->query(member_song_id)->set_song_popularity(sng_c->query(member_song_id)->getPopularity() + new_pl->getPopularity());
+              sng_c->query((member_song_id))->song_add_playlist(new_pl->my_id);
+          }
+
           pl_c->refine();
         }
            inputFile.close();
@@ -189,17 +198,20 @@ void MainWindow::on_pushButton_3_clicked(){
     string sPlaylistName = playlistName.toLatin1().data();
     string sPlaylistPopularity = playlistPopularity.toLatin1().data();
     string song_id_stream = convTitleStream2StrNumStream(sPlaylistName);
-
     std::cout << "Single Playlist Submitted: " << (sPlaylistName + " " + sPlaylistPopularity) << std::endl;
     //test single playlist input: Friend Of God, Your Great Name, Collide, September 63
-
-    // Convert users input stream of song names to IDs
-    //string song_id_stream = convTitleStream2StrNumStream(sPlaylistName);
-    // std::cout << "songs ids: " << song_id_stream << " pop: " << playlistPopularity.toInt() << std::endl;
 
     Playlist* new_pl = new Playlist(song_id_stream,playlistPopularity.toInt());
     // add a new playlist
     pl_c->add(new_pl);
+
+    // add this playlists popularity to the song's pop
+    for(int ii = 0; ii < new_pl->my_songs->size(); ii++){
+        std::string member_song_id = new_pl->my_songs->at(ii);
+        // sng_c->query(member_song_id)->set_song_popularity(sng_c->query(member_song_id)->getPopularity() + new_pl->getPopularity());
+        sng_c->query((member_song_id))->song_add_playlist(new_pl->my_id);
+    }
+
     // refine is required to maintain the backend storage and so-on
     pl_c->refine();
 
