@@ -17,6 +17,7 @@
 #include <QFile>
 #include <QDir>
 #include <QDebug>
+#include <cmath>
 
 /* // QString -> string
  cout << QDir::homePath().toLatin1().data() << endl; // convert Qstring to c_string
@@ -280,8 +281,30 @@ void MainWindow::on_textEdit_textChanged(){
       }
     // At this point, the song names sorted in the array are in popularity order
 
+    double highest_found_pop = sng_c->query_by_name(suggested_vector->at(0))->getPopularity() * 1.0;
+    int first_third=floor(highest_found_pop/3), second_third=(2*first_third);
+
+    std::string fire = "🔥";
+
     for(int ii = 0; ii < suggested_vector->size(); ii++){
-        songSuggestions << ((QString::fromStdString(suggested_vector->at(ii))) + " - " + QString::number(sng_c->query_by_name(suggested_vector->at(ii))->getPopularity()) + "🔥");
+        std::string cur = suggested_vector->at(ii);
+        int cur_pop = sng_c->query_by_name(cur)->getPopularity();
+
+        std::string fire_rating;
+        if(cur_pop == 0){
+            fire_rating = "";
+        }
+        else if(cur_pop <= first_third){
+            fire_rating = fire;
+        }
+        else if(cur_pop <= second_third){
+            fire_rating = fire +fire;
+        }
+        else{
+            fire_rating = fire + fire + fire;
+        }
+
+        songSuggestions << ((QString::fromStdString(cur)) + " - " + QString::number(cur_pop) + QString::fromStdString(fire_rating));
     }
 
     QStringListModel *model = new QStringListModel(songSuggestions);
