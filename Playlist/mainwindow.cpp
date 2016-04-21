@@ -40,6 +40,33 @@ Song_Container* sng_c = NULL;// new Song_Container();
 Playlist_Container* pl_c = NULL; // new Playlist_Container();
 Try* song_tree = NULL; // new Trie();
 
+std::string redactParenthesis(std::string in_str){
+    // This is a test function that is going to remove () from strings
+    //std::string in_str = "Herl dsf , (This i vf ] 3sd(fg gfdg ][4";
+    std::string result = "";
+    for(int ii = 0; ii < in_str.length(); ii++){
+        if(in_str[ii] == '('){
+            int caught_index = ii;
+            while(in_str[ii] != ')'){
+              // if you never get a )
+              if(ii == in_str.length() - 1){
+                  for(int jj = caught_index; jj < in_str.length(); jj++){
+                      result += in_str[jj];
+                  }
+              }
+              ii++;
+            }
+            ii++;
+        }
+        if(ii <= in_str.length())
+            result += in_str[ii];
+    }
+
+    //std::cout << in_str << std::endl;
+    //std::cout << result << std::endl;
+    return result;
+}
+
 std::string convStrNumStream2TitleStream(std::string inn_stream){
     stringstream lineStream(inn_stream);
     string song_title_stream = "";
@@ -72,7 +99,7 @@ QAbstractItemModel *buildModel(){
     QStringList stringList;
     for(int ii = 1023, jj = 1; ii > 1015; ii--, jj++){
        string pl_id = pl_c->my_sorted_ids.at(ii);
-       QString temp = QString::number(jj) + ": " + QString::fromStdString(convStrNumStream2TitleStream(pl_c->query(pl_id)->my_song_stream)) + " - " + QString::number(pl_c->query(pl_id)->getPopularity()) + "👍";
+       QString temp = QString::number(jj) + ": " + QString::fromStdString(redactParenthesis(convStrNumStream2TitleStream(pl_c->query(pl_id)->my_song_stream))) + " - 👍" + QString::number(pl_c->query(pl_id)->getPopularity());
        //QString temp = "Playlist " + QString::number(ii); //QString::number(pl_c->pl_backend.size());
        stringList << temp;
     }
@@ -110,6 +137,15 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWind
     ui->setupUi(this);
     // build all initial backend structures & load the appropriate data from files
     setInitialState();
+
+
+
+
+
+
+
+
+
 
     /*for(int ii = 1023; ii > 1015; ii--){
         string pl_id = pl_c->my_sorted_ids.at(ii);
