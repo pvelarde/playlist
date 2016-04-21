@@ -104,11 +104,10 @@ void Playlist_Container::refine(){
     this->sort_me();
     //access the least popular playlist
     string weakest_pl_id = this->my_sorted_ids.at(0);
-
     //remove the pair from the container,
     //iterate through the songs in the pl & adjust their popularities
-
     this->query(weakest_pl_id)->remove(); // remove the songs' pop from this playlist
     this->erase(weakest_pl_id); // remove the actual object
+    this->sort_me();
 }
 

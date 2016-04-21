@@ -189,11 +189,12 @@ void MainWindow::on_pushButton_clicked(){
     }
 }
 
+// upload playlists from a file
 void MainWindow::on_pushButton_2_clicked(){
     QString fileName = ui->textEdit_2->toPlainText();
     string sFileName = fileName.toLatin1().data();
     std::cout << "Attempting to Upload: " + sFileName << std::endl;
-    // test url: /Users/nick102795/Desktop/playlist/uploads/day01.txt
+    // test url: /Users/nick102795/Desktop/main/School/College/year3/EC504/playlist/uploads/day01.txt
 
     QFile inputFile(fileName);
     if (inputFile.open(QIODevice::ReadOnly)){
@@ -229,13 +230,14 @@ void MainWindow::on_pushButton_2_clicked(){
           pl_c->refine();
         }
            inputFile.close();
+           QListView *listView = ui->mostPopularPlaylistListView;
+           QAbstractItemModel* model = buildModel();   // make the buildModel() func to intake the new most-popular PL strings
+           listView->setModel(model);
+           listView->show();
     }
-
-    QListView *listView = ui->mostPopularPlaylistListView;
-    QAbstractItemModel *model = buildModel();   // make the buildModel() func to intake the new most-popular PL strings
-    listView->setModel(model);
-    listView->show();
-
+    else{
+        std::cout << "Failed to open: " << sFileName << std::endl;
+    }
 }
 
 // single playlist adding
