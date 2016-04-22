@@ -63,6 +63,9 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(1153, 647);
+        QIcon icon;
+        icon.addFile(QStringLiteral("../../../../../../../favicon.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindow->setWindowIcon(icon);
         MainWindow->setStyleSheet(QLatin1String("QWidget{\n"
 "background-color:rgb(191, 191, 191);\n"
 "border-radius:2px;\n"

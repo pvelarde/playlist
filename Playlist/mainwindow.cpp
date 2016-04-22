@@ -178,6 +178,7 @@ void setInitialState(){
 
 MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWindow){
     ui->setupUi(this);
+    setWindowIcon(QIcon("/Users/nick102795/Desktop/favicon.ico"));
     // build all initial backend structures & load the appropriate data from files
     setInitialState();
     // Set Up the top 8 Most Popular Playlists

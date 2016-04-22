@@ -188,7 +188,6 @@ DIST          = /Users/nick102795/Qt/5.5/clang_64/mkspecs/features/spec_pre.prf 
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/qt_config.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/macx-clang/qmake.conf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/spec_post.prf \
-		../Playlist/.qmake.stash \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/exclusive_builds.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/default_pre.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -388,7 +387,6 @@ Makefile: ../Playlist/Playlist.pro /Users/nick102795/Qt/5.5/clang_64/mkspecs/mac
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/qt_config.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/macx-clang/qmake.conf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/exclusive_builds.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/default_pre.prf \
 		/Users/nick102795/Qt/5.5/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -536,7 +534,6 @@ Makefile: ../Playlist/Playlist.pro /Users/nick102795/Qt/5.5/clang_64/mkspecs/mac
 /Users/nick102795/Qt/5.5/clang_64/mkspecs/features/qt_config.prf:
 /Users/nick102795/Qt/5.5/clang_64/mkspecs/macx-clang/qmake.conf:
 /Users/nick102795/Qt/5.5/clang_64/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /Users/nick102795/Qt/5.5/clang_64/mkspecs/features/exclusive_builds.prf:
 /Users/nick102795/Qt/5.5/clang_64/mkspecs/features/default_pre.prf:
 /Users/nick102795/Qt/5.5/clang_64/mkspecs/features/mac/default_pre.prf:
@@ -683,7 +680,9 @@ mainwindow.o: ../Playlist/mainwindow.cpp ../Playlist/mainwindow.h \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QDir \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qdir.h \
 		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/QDebug \
-		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qdebug.h
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		/Users/nick102795/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Playlist/mainwindow.cpp
 
 Playlist_Container.o: ../Playlist/Playlist_Container.cpp ../Playlist/Playlist_Container.h \
