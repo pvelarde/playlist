@@ -8,31 +8,6 @@
 
 #include "Text_Parser.h"
 
-bool isInteger(std::string & s)
-{
-   if(s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false ;
-
-   char * p ;
-   strtol(s.c_str(), &p, 10) ;
-
-   return (*p == 0) ;
-}
-
-//check if the string is a legal playlist initiation format
-bool is_legal_id_stream(std::string inn){
-    bool result = true;
-    // 234 2334 653 3455    23
-    stringstream lineStream(inn);
-    string song_id;
-    while (lineStream >> song_id){
-        if(!isInteger(song_id)){
-            result = false;
-            break;
-        }
-    }
-    return result;
-}
-
 Text_Parser::Text_Parser(QString file_name){
     this->my_file = file_name;
 }
@@ -226,11 +201,6 @@ Playlist_Container* Text_Parser::parse_playlist_text(){
                 for(unsigned int i = 0; i < 31; ++i){
                     temp_str += createRandom();
                 }
-
-                /*if(!is_legal_id_stream(temp_str)){
-                    std::cout << "Exited due to error in the file." << endl <<"Successfully uploaded " << (line_counter - 1) << " playlists." << endl;
-                    break;
-                }*/
 
                 // pl_popularity, str_of_song_ids are set at this point
                 Playlist* new_pl = new Playlist(temp_str, str_of_song_ids, pl_popularity);

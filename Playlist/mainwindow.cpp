@@ -24,6 +24,31 @@ Song_Container* sng_c = NULL;// new Song_Container();
 Playlist_Container* pl_c = NULL; // new Playlist_Container();
 Try* song_tree = NULL; // new Trie();
 
+bool isInteger(std::string & s)
+{
+   if(s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false ;
+
+   char * p ;
+   strtol(s.c_str(), &p, 10) ;
+
+   return (*p == 0) ;
+}
+
+//check if the string is a legal playlist initiation format
+bool is_legal_id_stream(std::string inn){
+    bool result = true;
+    // 234 2334 653 3455    23
+    stringstream lineStream(inn);
+    string song_id;
+    while (lineStream >> song_id){
+        if(!isInteger(song_id)){
+            result = false;
+            break;
+        }
+    }
+    return result;
+}
+
 //checks if a string stream is legal
 bool is_legal_input_str_stream(std::string in_ss){
     bool result = true;
@@ -200,15 +225,30 @@ void MainWindow::on_pushButton_2_clicked(){
           string line = line_temp.toUtf8().constData();
           string deliminator = "	";
 
+          //make sure there is at least one '\t' on that line
+
+
+          int up_to = line.find(deliminator);
+          if(up_to <= 0){
+              // There is no tab deliminator to be found
+              std::cout << "Tab Deliminator Error" << endl << "Exited due to error in the file." << endl <<"Successfully uploaded " << (line_counter - 1) << " playlists." << endl;
+              break;
+          }
+
           string str_of_song_ids = "";
-          for(int ii = 0; ii < line.find(deliminator); ii++){
+          for(int ii = 0; ii < up_to; ii++){
               str_of_song_ids += line[ii];
           }// + 2 since the deliminator is 2 characters long
           line = line.substr(line.find(deliminator)+1,line.length()-line.find(deliminator)+1);
           string pl_pop = line;
           int pl_popularity = atoi(pl_pop.c_str()); // was stoi but this version of C++ is bad
-          std::cout << pl_popularity << std::endl;
+          std::cout << "Playlists Uploaded: " << (line_counter - 1) << std::endl;
          //  std::cout << pl_pop << std::endl;
+
+          if(!is_legal_id_stream(str_of_song_ids)){
+              std::cout << "Exited due to error in the file." << endl <<"Successfully uploaded " << (line_counter - 1) << " playlists." << endl;
+              break;
+          }
 
           // pl_popularity, str_of_song_ids are set at this point
           Playlist* new_pl = new Playlist(str_of_song_ids, pl_popularity);
