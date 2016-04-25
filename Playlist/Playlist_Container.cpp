@@ -53,6 +53,40 @@ void Playlist_Container::print(){
     }
 }
 
+void Playlist_Container::sort_me_initially(){
+    // empty the current IDs
+    this->my_sorted_ids.clear();
+    // first load all the IDs in the vector
+    for(map<string, Playlist* >::const_iterator it = pl_backend.begin();it != pl_backend.end(); ++it){
+        //std::cout << "counter " << ii << " id: " << it->first << "\n";
+       // ii++;
+        this->my_sorted_ids.push_back(it->first);
+        //std::cout << it->first << std::endl;
+    }
+
+    // bubble sort the array
+    int nn = this->pl_backend.size();
+    for (int ii = 0 ; ii < ( nn - 1 ); ii++)
+      {
+        for (int jj = 0 ; jj < nn - ii - 1; jj++)
+        {
+          if ( this->query(this->my_sorted_ids.at(jj))->getPopularity() > this->query(this->my_sorted_ids.at(jj+1))->getPopularity()) /* For decreasing order use < */
+          {
+              //std::cout << this->query(this->my_sorted_ids.at(jj))->getPopularity() << std::endl;
+            string swap = this->my_sorted_ids.at(jj);
+            this->my_sorted_ids.at(jj)   = this->my_sorted_ids.at(jj+1);
+            this->my_sorted_ids.at(jj+1) = swap;
+          }
+        }
+      }
+
+   /* // Just for debugging purposes
+    *  for(int kk = 0; kk < nn; kk++){
+        std::cout << this->query(this->my_sorted_ids.at(kk))->getPopularity() << std::endl;
+    }*/
+
+}
+
 void Playlist_Container::sort_me(){
     // empty the current IDs
     this->my_sorted_ids.clear();
@@ -98,16 +132,31 @@ void Playlist_Container::update_song_popularities(){
     }
 }
 
-// should be called after each add() after the inital load
+// Should be called after each add() after the inital load
+// This function is used to rebalance the backend & maintain memory management
 void Playlist_Container::refine(){
-    // sort all the objects by their ID
-    this->sort_me();
     //access the least popular playlist
+
     string weakest_pl_id = this->my_sorted_ids.at(0);
     //remove the pair from the container,
     //iterate through the songs in the pl & adjust their popularities
     this->query(weakest_pl_id)->remove(); // remove the songs' pop from this playlist
     this->erase(weakest_pl_id); // remove the actual object
-    this->sort_me();
+    this->sort_me();    // sort all the objects by their ID
+
+
+    // at this point, you are entering the loop with
+    // the array perfectly sorted
+    int ii = 0;
+    while(this->pl_backend.size() > 1024){
+        string weakest_pl_id = this->my_sorted_ids.at(ii);
+        //remove the pair from the container,
+        //iterate through the songs in the pl & adjust their popularities
+        this->query(weakest_pl_id)->remove(); // remove the songs' pop from this playlist
+        this->erase(weakest_pl_id); // remove the actual object
+        ii++;
+    }
+    if(ii > 0)
+        this->sort_me();    // sort all the objects by their ID
 }
 

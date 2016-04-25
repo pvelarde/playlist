@@ -169,7 +169,7 @@ void setInitialState(){
     // fill the playlist container
     pl_c = playlist_loader->parse_playlist_text();
     // sort all IDs in order of that playlist's popularity
-    pl_c->sort_me();
+    pl_c->sort_me_initially();
     // load up all the song popularities, now that the playlists have been instanciated
     pl_c->update_song_popularities();
     // load all songs into the Trie
@@ -196,7 +196,9 @@ MainWindow::~MainWindow(){
 void MainWindow::on_pushButton_clicked(){
     QString Qinput = ui->textEdit->toPlainText();
     string input = ui->textEdit->toPlainText().toLatin1().data();
-    if(song_tree->check(input) != 0){
+    int check_val = song_tree->check(input);
+    std::cout << check_val << std::endl;
+    if(check_val > 0){
         ui->label_9->setStyleSheet("color:black; background-color:white");
         // need to do error checking in the case that the program crashes
         QString the_most_pop_playlist = QString::fromStdString(convStrNumStream2TitleStream(pl_c->query(sng_c->query_by_name(input)->get_song_most_pop_playlist_id())->my_song_stream));
@@ -239,7 +241,7 @@ void MainWindow::on_pushButton_2_clicked(){
           string str_of_song_ids = "";
           for(int ii = 0; ii < up_to; ii++){
               str_of_song_ids += line[ii];
-          }// + 2 since the deliminator is 2 characters long
+          }
           line = line.substr(line.find(deliminator)+1,line.length()-line.find(deliminator)+1);
           string pl_pop = line;
           int pl_popularity = atoi(pl_pop.c_str()); // was stoi but this version of C++ is bad
@@ -262,10 +264,9 @@ void MainWindow::on_pushButton_2_clicked(){
               // sng_c->query(member_song_id)->set_song_popularity(sng_c->query(member_song_id)->getPopularity() + new_pl->getPopularity());
               sng_c->query((member_song_id))->song_add_playlist(new_pl->my_id);
           }
-
-          pl_c->refine();
           line_counter++;
         }
+           pl_c->refine();
            inputFile.close();
            QListView *listView = ui->mostPopularPlaylistListView;
            QAbstractItemModel* model = buildModel();   // make the buildModel() func to intake the new most-popular PL strings
@@ -334,6 +335,8 @@ void MainWindow::on_textEdit_textChanged(){
     QStringList songSuggestions;
     vector<string>* suggested_vector = song_tree->hasPrefixAsVector(input);
 
+    std::cout << suggested_vector->size() << std::endl;
+
     // check otherwise the vector could go out of range
     if(suggested_vector->size() > 0){
         // sort the suggested_vector by song popularity
@@ -371,11 +374,12 @@ void MainWindow::on_textEdit_textChanged(){
             }
             songSuggestions << ((QString::fromStdString(cur)) + " - " + QString::number(cur_pop) + QString::fromStdString(fire_rating));
         }
+        songSuggestions << "";
+        QStringListModel *model = new QStringListModel(songSuggestions);
+        ui->listView->setModel(model);
     }
 
-    songSuggestions << "";
-    QStringListModel *model = new QStringListModel(songSuggestions);
-    ui->listView->setModel(model);
+
 }
 
 void MainWindow::on_pushButton_4_clicked()

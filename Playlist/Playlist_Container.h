@@ -52,6 +52,8 @@ public:
     // re-sorted
     void sort_me();
 
+    void sort_me_initially();
+
     void update_song_popularities();
     
     map<string,Playlist*> pl_backend;

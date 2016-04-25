@@ -78,9 +78,17 @@ int Try::check(string checkStr){
     
     if((this->children[((int)(checkStr[0]))] != NULL) && (checkStr != "")){
         result = this->children[((int)(checkStr[0]))]->check(checkStr.substr(1,checkStr.length() - 1));
+        cout << "here" << endl;
+    }
+    else if((this->children[((int)(checkStr[0]))] != NULL)){
+        result = 0;
+    }
+    else if((checkStr != "")){
+        result = 0;
     }
     else if(this->endWordFlag){
         result = this->count;
+        cout << "here2" << endl;
     }
     else{
         /*indicating that there have been no insertions of the check string into the structure*/
